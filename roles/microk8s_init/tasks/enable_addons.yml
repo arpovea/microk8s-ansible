@@ -1,0 +1,34 @@
+---
+- name: Enable MicroK8s DNS addon
+  command: /snap/bin/microk8s enable dns
+
+- name: Enable MicroK8s Ingress addon
+  command: /snap/bin/microk8s enable ingress
+
+- name: Enable MicroK8s Dashboard addon
+  command: /snap/bin/microk8s enable dashboard
+
+- name: Enable MicroK8s MetalLB addon
+  command: /snap/bin/microk8s enable metallb
+
+- name: Configure MetalLB IP range
+  template:
+    src: metallb-config.j2
+    dest: /tmp/metallb-config.yaml
+
+- name: Apply MetalLB configuration
+  command: microk8s kubectl apply -f /tmp/metallb-config.yaml
+
+- name: Enable MicroK8s RBAC addon
+  command: /snap/bin/microk8s enable rbac
+
+- name: Enable MicroK8s Metrics Server addon
+  command: /snap/bin/microk8s enable metrics-server
+
+#- name: Enable MicroK8s Storage addon
+#  command: /snap/bin/microk8s enable storage
+
+#- name: Enable MicroK8s Registry addon
+#  command: /snap/bin/microk8s enable registry
+
+

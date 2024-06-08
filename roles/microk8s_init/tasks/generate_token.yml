@@ -1,0 +1,16 @@
+---
+- name: Wait for MicroK8s to be ready
+  shell: "microk8s status --wait-ready"
+  retries: 10
+  delay: 10
+  register: microk8s_status
+  until: microk8s_status.rc == 0
+
+- name: Generate join token
+  shell: "microk8s add-node --token-ttl 3600 | grep 'microk8s join' | head -n 1"
+  register: join_command
+  changed_when: false
+
+- name: Set fact with join command
+  set_fact:
+    join_command: "{{ join_command.stdout }}"

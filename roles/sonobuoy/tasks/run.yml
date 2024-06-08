@@ -1,0 +1,31 @@
+---
+- name: Run Sonobuoy
+  command: "sonobuoy run --wait"
+  register: sonobuoy_run_output
+
+- name: Get Sonobuoy results
+  command: "sonobuoy retrieve"
+  register: sonobuoy_results_output
+
+- name: Create directory for results
+  file:
+    path: "/tmp/sonobuoy_results"
+    state: directory
+
+- name: Unarchive Sonobuoy results
+  unarchive:
+    src: "{{ sonobuoy_results_output.stdout }}"
+    dest: "/tmp/sonobuoy_results"
+    remote_src: yes
+
+- name: Create directory for results on local
+  local_action:
+    module: file
+    path: "./sonobuoy_results"
+    state: directory
+
+- name: Fetch Sonobuoy results to local
+  fetch:
+    src: "/tmp/sonobuoy_results"
+    dest: "./sonobuoy_results"
+    flat: yes

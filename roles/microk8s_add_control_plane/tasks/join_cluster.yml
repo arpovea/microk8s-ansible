@@ -1,0 +1,4 @@
+---
+- name: Join the MicroK8s cluster as worker
+  shell: "{{ hostvars[groups['control_plane_primary'][0]].join_command }}"
+  when: join_command is defined

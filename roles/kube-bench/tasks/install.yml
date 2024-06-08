@@ -1,0 +1,16 @@
+---
+- name: Download Kube-bench
+  get_url:
+    url: "https://github.com/aquasecurity/kube-bench/releases/latest/download/kube-bench_{{ kube_bench_version }}_linux_amd64.tar.gz"
+    dest: "/tmp/kube-bench.tar.gz"
+
+- name: Extract Kube-bench
+  unarchive:
+    src: "/tmp/kube-bench.tar.gz"
+    dest: "/usr/local/bin/"
+    remote_src: yes
+
+- name: Ensure Kube-bench is executable
+  file:
+    path: "/usr/local/bin/kube-bench"
+    mode: '0755'

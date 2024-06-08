@@ -1,0 +1,26 @@
+---
+- name: Run Kube-bench
+  command: "kube-bench run --json"
+  register: kube_bench_output
+
+- name: Create directory for results on remote
+  file:
+    path: "/tmp/kube_bench_results"
+    state: directory
+
+- name: Save Kube-bench results to file
+  copy:
+    content: "{{ kube_bench_output.stdout }}"
+    dest: "/tmp/kube_bench_results/kube-bench-results.json"
+
+- name: Create directory for results on local
+  local_action:
+    module: file
+    path: "./kube_bench_results"
+    state: directory
+
+- name: Fetch Kube-bench results to local machine
+  fetch:
+    src: "/tmp/kube_bench_results/kube-bench-results.json"
+    dest: "./kube_bench_results/kube-bench-results.json"
+    flat: yes

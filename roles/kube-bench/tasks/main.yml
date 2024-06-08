@@ -1,0 +1,6 @@
+---
+- name: Install Kube Bench
+  include_tasks: install.yml
+
+- name: Run Kube Bench
+  include_tasks: run.yml

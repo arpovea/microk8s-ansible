@@ -1,0 +1,6 @@
+---
+- name: Install Sonobuoy
+  include_tasks: install.yml
+
+- name: Run Sonobuoy
+  include_tasks: run.yml

@@ -1,0 +1,25 @@
+---
+- hosts: all
+  become: yes
+  roles:
+    - basic_setup
+
+- hosts: control_plane_primary
+  become: yes
+  roles:
+    - microk8s_init
+
+- hosts: control_plane_additional
+  become: yes
+  roles:
+    - microk8s_add_control_plane
+
+- hosts: workers
+  become: yes
+  roles:
+    - microk8s_add_worker
+
+- hosts: control_plane_primary
+  become: yes
+  roles:
+    - sonobuoy

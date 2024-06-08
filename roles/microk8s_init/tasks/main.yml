@@ -1,0 +1,13 @@
+---
+- name: Install MicroK8s
+  include_tasks: install.yml
+
+- name: Configure user MicroK8s
+  include_tasks: configure_user.yml
+
+- name: Enable MicroK8s Addons
+  include_tasks: enable_addons.yml
+
+- name: Generate Join token
+  include_task: generate_token.yml
+

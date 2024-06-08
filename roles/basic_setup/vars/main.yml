@@ -1,0 +1,9 @@
+---
+# Definición de servidores DNS
+nameservers:
+  - 8.8.8.8
+  - 8.8.4.4
+
+# Definicion de servidor NTP
+ntp_servers:
+  - "ntp.ubuntu.com"

@@ -1,0 +1,4 @@
+# /etc/resolv.conf
+{% for nameserver in nameservers %}
+nameserver {{ nameserver }}
+{% endfor %}
