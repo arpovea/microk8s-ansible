@@ -33,3 +33,9 @@
   become: yes
   roles:
     - kube_bench
+
+- hosts: control_plane_primary
+  become: yes
+  roles:
+    - argocd
+    - tekton

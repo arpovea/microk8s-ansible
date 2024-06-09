@@ -1,0 +1,3 @@
+---
+# Variable del host de argocd
+argocd_host: "argocd.example.com"

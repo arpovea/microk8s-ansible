@@ -1,0 +1,3 @@
+---
+- name: Deploy ArgoCD
+  include_tasks: install.yml
