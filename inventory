@@ -13,3 +13,10 @@ control-plane-3 ansible_host=192.168.1.102 ansible_user=ubuntu ansible_ssh_priva
 [workers]
 worker-1 ansible_host=192.168.1.110 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
 worker-2 ansible_host=192.168.1.111 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
+
+[cluster_microk8s]
+control-plane-1 ansible_host=192.168.1.100 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
+control-plane-2 ansible_host=192.168.1.101 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
+control-plane-3 ansible_host=192.168.1.102 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
+worker-1 ansible_host=192.168.1.110 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
+worker-2 ansible_host=192.168.1.111 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key

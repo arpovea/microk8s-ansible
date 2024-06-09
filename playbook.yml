@@ -19,7 +19,17 @@
   roles:
     - microk8s_add_worker
 
+- hosts: clusters_microk8s
+  become: yes
+  roles:
+    - microk8s_hold_updates
+
 - hosts: control_plane_primary
   become: yes
   roles:
     - sonobuoy
+
+- hosts: control_plane_primary
+  become: yes
+  roles:
+    - kube_bench
