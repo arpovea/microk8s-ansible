@@ -14,9 +14,7 @@
     dest: /tmp/metallb-config.yaml
 
 - name: Apply MetalLB configuration
-  kubernetes.core.kubectl:
-    command: apply
-    filename: /tmp/metallb-config.yaml
+  command: /snap/bin/microk8s kubectl apply -f /tmp/metallb-config.yaml
 
 - name: Enable MicroK8s Ingress addon
   command: /snap/bin/microk8s enable ingress  
@@ -27,9 +25,7 @@
     dest: /tmp/ingress-controller-service.yaml
 
 - name: Apply Ingress Controller Service
-  kubernetes.core.kubectl:
-    command: apply
-    filename: /tmp/ingress-controller-service.yaml
+  command: /snap/bin/microk8s kubectl apply -f /tmp/ingress-controller-service.yaml
 
 - name: Enable MicroK8s Metrics Server addon
   command: /snap/bin/microk8s enable metrics-server

@@ -15,4 +15,4 @@
   snap:
     name: microk8s
     classic: yes
-    state: latest
+    state: present
