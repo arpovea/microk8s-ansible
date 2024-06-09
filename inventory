@@ -1,25 +1,25 @@
 [control_plane]
-control-plane-1 ansible_host=192.168.1.100 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
-control-plane-2 ansible_host=192.168.1.101 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
-control-plane-3 ansible_host=192.168.1.102 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
+microk8s-master1 ansible_host=10.10.10.11 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
+microk8s-master2 ansible_host=10.10.10.12 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
+microk8s-master3 ansible_host=10.10.10.13 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
 
 [control_plane_primary]
-control-plane-1 ansible_host=192.168.1.100 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
+microk8s-master1 ansible_host=10.10.10.11 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
 
 [control_plane_additional]
-control-plane-2 ansible_host=192.168.1.101 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
-control-plane-3 ansible_host=192.168.1.102 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
+microk8s-master2 ansible_host=10.10.10.12 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
+microk8s-master3 ansible_host=10.10.10.13 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
 
 [workers]
-worker-1 ansible_host=192.168.1.110 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
-worker-2 ansible_host=192.168.1.111 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
+microk8s-worker1 ansible_host=10.10.10.14 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
+microk8s-worker2 ansible_host=10.10.10.15 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
 
 [cluster_microk8s]
-control-plane-1 ansible_host=192.168.1.100 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
-control-plane-2 ansible_host=192.168.1.101 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
-control-plane-3 ansible_host=192.168.1.102 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
-worker-1 ansible_host=192.168.1.110 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
-worker-2 ansible_host=192.168.1.111 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
+microk8s-master1 ansible_host=10.10.10.11 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
+microk8s-master2 ansible_host=10.10.10.12 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
+microk8s-master3 ansible_host=10.10.10.13 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
+microk8s-worker1 ansible_host=10.10.10.14 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
+microk8s-worker2 ansible_host=10.10.10.15 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
 
 [haproxy]
-haproxy-microk8s ansible_host=192.168.1.100 ansible_user=ubuntu ansible_ssh_private_key_file=/path/to/private/key
+haproxy-microk8s ansible_host=10.10.10.16 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/privatekey
