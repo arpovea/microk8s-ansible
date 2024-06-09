@@ -1,16 +1,16 @@
 ---
 # Nodos Worker para HAPROXY
 k8s_nodes:
-  - name: worker-1
-    ip: 192.168.1.110
-  - name: worker-2
-    ip: 192.168.1.111
+  - name: microk8s-worker1
+    ip: 10.10.10.14
+  - name: microk8s-worker2
+    ip: 10.10.10.15
 
 #Nodos Control Plane para HAPROXY
 k8s_control_plane:
-  - name: control-plane-1
-    ip: 192.168.1.100
-  - name: control-plane-2
-    ip: 192.168.1.101
-  - name: control-plane-3
-    ip: 192.168.1.102
+  - name: microk8s-master1
+    ip: 10.10.10.11
+  - name: microk8s-master2
+    ip: 10.10.10.12
+  - name: microk8s-master3
+    ip: 10.10.10.13
