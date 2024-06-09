@@ -1,6 +1,6 @@
 ---
 # Definición de rango IP para MetalLB
-ip_range: "192.168.1.240-192.168.1.250"
+ip_range: "10.10.10.150-10.10.10.160"
 
 # Definicion de IP para ingress-controller (tipo load balancer)
-ip_ingress_controller: "192.168.1.241"
+ip_ingress_controller: "10.10.10.151"
