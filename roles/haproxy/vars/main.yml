@@ -1,0 +1,16 @@
+---
+# Nodos Worker para HAPROXY
+k8s_nodes:
+  - name: worker-1
+    ip: 192.168.1.110
+  - name: worker-2
+    ip: 192.168.1.111
+
+#Nodos Control Plane para HAPROXY
+k8s_control_plane:
+  - name: control-plane-1
+    ip: 192.168.1.100
+  - name: control-plane-2
+    ip: 192.168.1.101
+  - name: control-plane-3
+    ip: 192.168.1.102

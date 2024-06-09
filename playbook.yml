@@ -39,3 +39,8 @@
   roles:
     - argocd
     - tekton
+
+- hosts: haproxy
+  become: yes
+  roles:
+    - haproxy
