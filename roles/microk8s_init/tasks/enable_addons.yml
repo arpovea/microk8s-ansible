@@ -6,11 +6,21 @@
   command: /snap/bin/microk8s enable rbac
 
 - name: Enable MicroK8s MetalLB addon
-  command: /snap/bin/microk8s enable metallb
+  command: echo "{{ metallb_ip_range }}" | /snap/bin/microk8s enable metallb
+
+- name: Check if MetalLB namespace exists
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Namespace
+    name: metallb-system
+  register: metallb_namespace
+  until: metallb_namespace.resources | length > 0
+  retries: 5
+  delay: 10
 
 - name: Configure MetalLB IP range
   template:
-    src: metallb-config.j2
+    src: metallb-config.yaml.j2
     dest: /tmp/metallb-config.yaml
 
 - name: Apply MetalLB configuration
