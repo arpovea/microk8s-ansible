@@ -8,10 +8,9 @@
 
 - name: Generate MicroK8s join token
   command: /snap/bin/microk8s add-node --token-ttl 3600
-  register: join_token
+  register: join_token_output
   become: yes
 
-- name: Set join token fact
+- name: Extract join token
   set_fact:
-    microk8s_join_token: "{{ join_token.stdout }}"
-  become: yes
+    microk8s_join_token: "{{ join_token_output.stdout | regex_search('microk8s join .*') | regex_replace('.*25000/', '') | regex_replace(' --.*', '') }}"
