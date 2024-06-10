@@ -1,6 +1,6 @@
 ---
 - name: Run Kube-bench
-  command: "kube-bench run --config-dir /usr/local/kube-bench/cfg --config /usr/local/kube-bench/cfg/config.yaml --json --outputfile /tmp/kube_bench_results/kube-bench-results.json"
+  command: "kube-bench run --json --outputfile /tmp/kube_bench_results/kube-bench-results.json"
 
 - name: Create directory for results on local
   local_action:
