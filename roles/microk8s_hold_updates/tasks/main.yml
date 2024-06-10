@@ -1,4 +1,4 @@
 ---
 - name: Hold Snap packages to prevent automatic updates
-  command: snap refresh --hold=microk8s
+  command: snap refresh --hold microk8s
   become: yes
