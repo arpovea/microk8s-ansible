@@ -18,6 +18,12 @@
     dest: "/tmp/sonobuoy_results"
     remote_src: yes
 
+- name: Compress Sonobuoy results
+  archive:
+    path: /tmp/sonobuoy_results
+    dest: /tmp/sonobuoy_results.tar.gz
+    format: gz    
+
 - name: Create directory for results on local
   local_action:
     module: file
@@ -26,8 +32,8 @@
 
 - name: Fetch Sonobuoy results to local
   fetch:
-    src: "/tmp/sonobuoy_results"
-    dest: "./sonobuoy_results"
+    src: /tmp/sonobuoy_results.tar.gz
+    dest: "./sonobuoy_results/sonobuoy_results.tar.gz"
     flat: yes
 
 - name: Delete Sonobuoy from the cluster
