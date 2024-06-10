@@ -12,14 +12,14 @@
     owner: "{{ ansible_user }}"
     mode: '0755'
 
-- name: Copy kubeconfig to the user's .kube directory
-  command: microk8s config > {{ ansible_env.HOME }}/.kube/config
-  become: yes
-  become_user: "{{ ansible_user }}"
-
 - name: Allow the user to access kubeconfig
   file:
     path: "{{ ansible_env.HOME }}/.kube"
     state: directory
     owner: "{{ ansible_user }}"
     recurse: yes
+
+- name: Copy kubeconfig to the user's .kube directory
+  command: microk8s config > {{ ansible_env.HOME }}/.kube/config
+  become: yes
+  become_user: "{{ ansible_user }}"
