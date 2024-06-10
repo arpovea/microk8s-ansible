@@ -13,3 +13,7 @@
   kubernetes.core.kubectl:
     command: apply
     filename: /tmp/argocd-ingress.yaml
+
+- name: Show Argo CD initial admin password
+  debug:
+    msg: "Argo CD initial admin password is: {{ argocd_admin_password.stdout }}"
