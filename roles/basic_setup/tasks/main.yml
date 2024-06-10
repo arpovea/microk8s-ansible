@@ -42,3 +42,8 @@
     mode: '0644'
   notify:
     - Restart chrony
+
+- name: Ensure jmespath is installed
+  pip:
+    name: jmespath
+  become: yes
