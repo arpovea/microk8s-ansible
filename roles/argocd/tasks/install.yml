@@ -11,6 +11,6 @@
   become: yes
 
 - name: Apply Argo CD manifest
-  command: "/snap/bin/microk8s kubectl apply -f /tmp/argocd-install.yaml"
+  command: "/snap/bin/microk8s kubectl apply -n argocd -f /tmp/argocd-install.yaml"
   become: yes
 
