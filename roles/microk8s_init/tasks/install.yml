@@ -16,3 +16,10 @@
     name: microk8s
     classic: yes
     state: present
+
+# Hace falta para futuros roles (kube-bench)
+- name: Ensure unzip is installed
+  apt:
+    name: unzip
+    state: present
+  become: yes
