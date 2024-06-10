@@ -30,3 +30,8 @@
     src: "/tmp/config.yaml"
     dest: "/usr/local/kube-bench/cfg/config.yaml"
     remote_src: yes
+
+- name: Create directory for results on remote
+  file:
+    path: "/tmp/kube_bench_results"
+    state: directory

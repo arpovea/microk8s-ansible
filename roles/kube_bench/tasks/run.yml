@@ -1,17 +1,6 @@
 ---
 - name: Run Kube-bench
-  command: "kube-bench run --config-dir /usr/local/kube-bench/cfg --config /usr/local/kube-bench/cfg/config.yaml --json"
-  register: kube_bench_run_output
-
-- name: Create directory for results on remote
-  file:
-    path: "/tmp/kube_bench_results"
-    state: directory
-
-- name: Save Kube-bench results to file
-  copy:
-    content: "{{ kube_bench_run_output.stdout }}"
-    dest: "/tmp/kube_bench_results/kube-bench-results.json"
+  command: "kube-bench run --config-dir /usr/local/kube-bench/cfg --config /usr/local/kube-bench/cfg/config.yaml --json --outputfile /tmp/kube_bench_results/kube-bench-results.json"
 
 - name: Create directory for results on local
   local_action:
