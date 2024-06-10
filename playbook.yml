@@ -19,7 +19,7 @@
   roles:
     - microk8s_add_worker
 
-- hosts: clusters_microk8s
+- hosts: cluster_microk8s
   become: yes
   roles:
     - microk8s_hold_updates

@@ -1,4 +1,4 @@
 ---
 - name: Join the MicroK8s cluster as worker
-  shell: "{{ hostvars[groups['control_plane_primary'][0]].join_command }}"
-  when: join_command is defined
+  shell: "/snap/bin/microk8s join {{ hostvars[groups['control_plane'][0]].ansible_host }}:25000/{{ hostvars[groups['control_plane'][0]].microk8s_join_token }} --worker"
+  become: yes
