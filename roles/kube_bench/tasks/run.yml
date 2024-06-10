@@ -1,7 +1,7 @@
 ---
 - name: Run Kube-bench
-  command: "kube-bench run --json"
-  register: kube_bench_output
+  command: "kube-bench run --config-dir /usr/local/kube-bench/cfg --config /usr/local/kube-bench/cfg/config.yaml --json"
+  register: kube_bench_run_output
 
 - name: Create directory for results on remote
   file:
