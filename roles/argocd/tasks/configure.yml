@@ -10,9 +10,8 @@
     dest: /tmp/argocd-ingress.yaml
 
 - name: Apply Argo CD ingress
-  kubernetes.core.kubectl:
-    command: apply
-    filename: /tmp/argocd-ingress.yaml
+  command: "/snap/bin/microk8s kubectl apply -f /tmp/argocd-ingress.yaml"
+  become: yes
 
 - name: Show Argo CD initial admin password
   debug:
