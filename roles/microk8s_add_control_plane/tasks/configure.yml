@@ -4,6 +4,12 @@
     name: "{{ ansible_user }}"
     groups: microk8s
     append: yes
+  become: yes
+
+- name: Refresh user groups
+  command: newgrp microk8s
+  become: yes
+  become_user: "{{ ansible_user }}"
 
 - name: Create .kube directory if it does not exist
   file:
@@ -11,15 +17,9 @@
     state: directory
     owner: "{{ ansible_user }}"
     mode: '0755'
-
-- name: Allow the user to access kubeconfig
-  file:
-    path: "{{ ansible_env.HOME }}/.kube"
-    state: directory
-    owner: "{{ ansible_user }}"
-    recurse: yes
+  become: yes
 
 - name: Copy kubeconfig to the user's .kube directory
-  command: microk8s config > {{ ansible_env.HOME }}/.kube/config
+  shell: /snap/bin/microk8s config > {{ ansible_env.HOME }}/.kube/config
   become: yes
   become_user: "{{ ansible_user }}"
