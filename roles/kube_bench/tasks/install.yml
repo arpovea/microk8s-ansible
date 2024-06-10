@@ -35,7 +35,7 @@
 - name: Copy Kube-bench config files
   copy:
     src: "/tmp/kube-bench-main/cfg"
-    dest: "/usr/local/kube-bench/cfg"
+    dest: "/usr/local/kube-bench/"
     remote_src: yes
 
 - name: Create directory for results on remote
