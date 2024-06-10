@@ -29,3 +29,4 @@
   copy:
     src: "/tmp/config.yaml"
     dest: "/usr/local/kube-bench/cfg/config.yaml"
+    remote_src: yes
