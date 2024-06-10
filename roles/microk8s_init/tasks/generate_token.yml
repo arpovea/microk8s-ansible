@@ -15,7 +15,6 @@
   set_fact:
     microk8s_join_token: "{{ join_token_output.stdout | regex_search('microk8s join .*') | regex_replace('.*25000/', '') | regex_replace(' --.*', '') }}"
 
----
 - name: Get list of current nodes in the cluster
   command: /snap/bin/microk8s kubectl get nodes -o name
   register: current_nodes
