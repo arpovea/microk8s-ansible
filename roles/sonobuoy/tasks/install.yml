@@ -1,7 +1,7 @@
 ---
 - name: Download Sonobuoy
   get_url:
-    url: "https://github.com/vmware-tanzu/sonobuoy/releases/latest/download/sonobuoy_{{ sonobuoy_version }}_linux_amd64.tar.gz"
+    url: "https://github.com/vmware-tanzu/sonobuoy/releases/download/v{{ sonobuoy_version }}/sonobuoy_{{ sonobuoy_version }}_linux_amd64.tar.gz"
     dest: "/tmp/sonobuoy.tar.gz"
 
 - name: Extract Sonobuoy
