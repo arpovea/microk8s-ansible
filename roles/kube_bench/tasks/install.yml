@@ -1,4 +1,10 @@
 ---
+- name: Ensure unzip is installed
+  apt:
+    name: unzip
+    state: present
+  become: yes
+
 - name: Download Kube-bench
   get_url:
     url: "https://github.com/aquasecurity/kube-bench/releases/download/v{{ kube_bench_version }}/kube-bench_{{ kube_bench_version }}_linux_amd64.tar.gz"
@@ -36,7 +42,7 @@
     src: "/tmp/kube-bench-main/cfg"
     dest: "/usr/local/kube-bench/cfg"
     remote_src: yes
-    
+
 - name: Create directory for results on remote
   file:
     path: "/tmp/kube_bench_results"
