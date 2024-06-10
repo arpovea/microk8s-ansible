@@ -19,7 +19,6 @@
   get_url:
     url: "https://raw.githubusercontent.com/aquasecurity/kube-bench/main/cfg/config.yaml"
     dest: "/tmp/config.yaml"
-    remote_src: yes
 
 - name: Create directory for Kube-bench config
   file:
@@ -30,4 +29,3 @@
   copy:
     src: "/tmp/config.yaml"
     dest: "/usr/local/kube-bench/cfg/config.yaml"
-    remote_src: yes
