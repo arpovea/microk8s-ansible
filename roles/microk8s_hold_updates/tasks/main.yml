@@ -1,8 +1,4 @@
 ---
-- name: Hold MicroK8s package to prevent automatic updates
-  shell: "apt-mark hold microk8s"
-  become: yes
-
 - name: Hold Snap packages to prevent automatic updates
   command: snap refresh --hold=microk8s
   become: yes
