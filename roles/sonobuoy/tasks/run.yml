@@ -2,6 +2,16 @@
 - name: Run Sonobuoy
   command: "sonobuoy run --wait"
   register: sonobuoy_run_output
+  async: 3600
+  poll: 10
+
+- name: Wait for Sonobuoy to complete
+  async_status:
+    jid: "{{ sonobuoy_run_output.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 360
+  delay: 10
 
 - name: Get Sonobuoy results
   command: "sonobuoy retrieve"
@@ -29,3 +39,7 @@
     src: "/tmp/sonobuoy_results"
     dest: "./sonobuoy_results"
     flat: yes
+
+- name: Delete Sonobuoy from the cluster
+  command: "sonobuoy delete --wait"
+  ignore_errors: yes
