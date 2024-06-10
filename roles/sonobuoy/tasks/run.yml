@@ -1,6 +1,6 @@
 ---
 - name: Run Sonobuoy
-  command: "sonobuoy run --wait"
+  command: "sonobuoy run --wait --mode quick"
   register: sonobuoy_run_output
 
 - name: Get Sonobuoy results
