@@ -3,4 +3,4 @@
 metallb_ip_range: 10.10.10.150-10.10.10.160
 
 # Definicion de IP para ingress-controller (tipo load balancer)
-ip_ingress_controller: "10.10.10.151"
+ip_ingress_controller: 10.10.10.151
