@@ -15,10 +15,22 @@
   become: yes
 
 - name: Allow the user to access kubeconfig
-  command: chown -R {{ ansible_user }} {{ ansible_env.HOME }}/.kube
+  file:
+    path: "{{ ansible_env.HOME }}/.kube"
+    state: directory
+    owner: "{{ ansible_user }}"
+    recurse: yes
   become: yes
 
-- name: Copy kubeconfig to the user's .kube directory
-  shell: /snap/bin/microk8s config > {{ ansible_env.HOME }}/.kube/config
+- name: Get MicroK8s kubeconfig
+  command: /snap/bin/microk8s config
+  register: microk8s_kubeconfig
   become: yes
-  become_user: "{{ ansible_user }}"
+
+- name: Write kubeconfig to the user's .kube directory
+  copy:
+    content: "{{ microk8s_kubeconfig.stdout }}"
+    dest: "{{ ansible_env.HOME }}/.kube/config"
+    owner: "{{ ansible_user }}"
+    mode: '0644'
+  become: yes
