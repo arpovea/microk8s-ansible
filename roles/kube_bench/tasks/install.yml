@@ -32,11 +32,6 @@
     dest: "/tmp/"
     remote_src: yes
 
-- name: Create directory for Kube-bench config
-  file:
-    path: "/usr/local/kube-bench/cfg"
-    state: directory
-
 - name: Copy Kube-bench config files
   copy:
     src: "/tmp/kube-bench-main/cfg"
