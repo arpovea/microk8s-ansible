@@ -15,22 +15,28 @@
     path: "/usr/local/bin/kube-bench"
     mode: '0755'
 
-- name: Download Kube-bench config files
+- name: Download Kube-bench config archive
   get_url:
-    url: "https://raw.githubusercontent.com/aquasecurity/kube-bench/main/cfg/config.yaml"
-    dest: "/tmp/config.yaml"
+    url: "https://github.com/aquasecurity/kube-bench/archive/refs/heads/main.zip"
+    dest: "/tmp/kube-bench-config.zip"
+
+- name: Extract Kube-bench config archive
+  unarchive:
+    src: "/tmp/kube-bench-config.zip"
+    dest: "/tmp/"
+    remote_src: yes
 
 - name: Create directory for Kube-bench config
   file:
     path: "/usr/local/kube-bench/cfg"
     state: directory
 
-- name: Copy Kube-bench config file
+- name: Copy Kube-bench config files
   copy:
-    src: "/tmp/config.yaml"
-    dest: "/usr/local/kube-bench/cfg/config.yaml"
+    src: "/tmp/kube-bench-main/cfg"
+    dest: "/usr/local/kube-bench/cfg"
     remote_src: yes
-
+    
 - name: Create directory for results on remote
   file:
     path: "/tmp/kube_bench_results"
