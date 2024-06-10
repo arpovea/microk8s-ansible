@@ -6,7 +6,7 @@
   command: /snap/bin/microk8s enable rbac
 
 - name: Enable MicroK8s MetalLB addon
-  command: echo "{{ metallb_ip_range }}" | /snap/bin/microk8s enable metallb
+  command: echo {{ metallb_ip_range }} | /snap/bin/microk8s enable metallb
 
 - name: Wait for MetalLB namespace to be created
   command: /snap/bin/microk8s kubectl get ns metallb-system
