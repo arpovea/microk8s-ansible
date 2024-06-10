@@ -1,31 +1,15 @@
 ---
 - name: Create Tekton namespace
-  kubernetes.core.k8s:
-    state: present
-    definition:
-      apiVersion: v1
-      kind: Namespace
-      metadata:
-        name: tekton-pipelines
+  command: "/snap/bin/microk8s kubectl create namespace tekton-pipelines"
+  ignore_errors: yes
+  become: yes
 
-- name: Install Tekton using Argo CD Application
-  kubernetes.core.k8s:
-    state: present
-    definition:
-      apiVersion: argoproj.io/v1alpha1
-      kind: Application
-      metadata:
-        name: tekton-install
-        namespace: argocd
-      spec:
-        project: default
-        source:
-          repoURL: https://github.com/tektoncd/pipeline
-          path: config
-        destination:
-          server: https://kubernetes.default.svc
-          namespace: tekton-pipelines
-        syncPolicy:
-          automated:
-            prune: true
-            selfHeal: true
+- name: Download Tekton manifest
+  get_url:
+    url: "https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml"
+    dest: "/tmp/tekton-pipeline-release.yaml"
+  become: yes
+
+- name: Apply Tekton manifest
+  command: "/snap/bin/microk8s kubectl apply -f /tmp/tekton-pipeline-release.yaml"
+  become: yes
