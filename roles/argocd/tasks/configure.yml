@@ -8,7 +8,6 @@
   template:
     src: argocd-ingress.yaml.j2
     dest: /tmp/argocd-ingress.yaml
-    remote_src: yes
 
 - name: Apply Argo CD ingress
   command: "/snap/bin/microk8s kubectl apply -f /tmp/argocd-ingress.yaml"
