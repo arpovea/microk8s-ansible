@@ -14,3 +14,18 @@
   file:
     path: "/usr/local/bin/kube-bench"
     mode: '0755'
+
+- name: Download Kube-bench config files
+  get_url:
+    url: "https://raw.githubusercontent.com/aquasecurity/kube-bench/main/cfg/config.yaml"
+    dest: "/tmp/config.yaml"
+
+- name: Create directory for Kube-bench config
+  file:
+    path: "/usr/local/kube-bench/cfg"
+    state: directory
+
+- name: Copy Kube-bench config file
+  copy:
+    src: "/tmp/config.yaml"
+    dest: "/usr/local/kube-bench/cfg/config.yaml"
