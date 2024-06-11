@@ -27,18 +27,18 @@
 - hosts: control_plane_primary
   become: yes
   roles:
+    - argocd
+#    - tekton
+
+- hosts: control_plane_primary
+  become: yes
+  roles:
     - sonobuoy
 
 - hosts: control_plane_primary
   become: yes
   roles:
     - kube_bench
-
-- hosts: control_plane_primary
-  become: yes
-  roles:
-    - argocd
-    - tekton
 
 - hosts: haproxy
   become: yes
