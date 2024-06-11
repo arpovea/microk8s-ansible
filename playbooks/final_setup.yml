@@ -1,0 +1,5 @@
+---
+- hosts: cluster_microk8s
+  become: yes
+  roles:
+    - microk8s_hold_updates

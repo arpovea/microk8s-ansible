@@ -1,0 +1,5 @@
+---
+- hosts: control_plane_additional
+  become: yes
+  roles:
+    - microk8s_add_control_plane

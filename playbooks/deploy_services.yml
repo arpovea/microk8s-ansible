@@ -1,0 +1,6 @@
+---
+- hosts: control_plane_primary
+  become: yes
+  roles:
+    - argocd
+#    - tekton
