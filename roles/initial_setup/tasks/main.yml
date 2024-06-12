@@ -42,3 +42,5 @@
     mode: '0644'
   notify:
     - Restart chrony
+
+# Por experiencia es mejor reiniciar "a mano" mejor que el notify ya que este se ejecuta cuando finaliza el playbook y puede no ejecutarse en el momento que lo deseas.

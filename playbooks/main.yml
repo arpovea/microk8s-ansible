@@ -22,3 +22,5 @@
 
 - name: Finalization Tasks
   import_playbook: final_setup.yml
+
+ # Nombre completo ansible FQDN  (modulo). tambien cambiar import a include

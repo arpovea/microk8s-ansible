@@ -14,3 +14,5 @@
   command: "/snap/bin/microk8s kubectl apply -n argocd -f /tmp/argocd-install.yaml"
   become: yes
 
+# Revisar utilizar modulos preinstalar.
+# Revisar para manejar el color de la tarea con register change when

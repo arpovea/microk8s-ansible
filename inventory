@@ -1,3 +1,17 @@
+# con esto ya se pillan los datos luego puedes definir variables generales o en los grupos []
+microk8s-master1 ansible_host=10.10.10.11 ansible_user=ubuntu ansible_password=ubuntu 
+microk8s-master2 ansible_host=10.10.10.12 ansible_user=ubuntu ansible_password=ubuntu
+microk8s-master3 ansible_host=10.10.10.13 ansible_user=ubuntu ansible_password=ubuntu
+microk8s-worker1 ansible_host=10.10.10.14 ansible_user=ubuntu ansible_password=ubuntu
+microk8s-worker2 ansible_host=10.10.10.15 ansible_user=ubuntu ansible_password=ubuntu
+
+[cluster_microk8s]
+microk8s-master1 ansible_host=10.10.10.11 ansible_user=ubuntu ansible_password=ubuntu 
+microk8s-master2 ansible_host=10.10.10.12 ansible_user=ubuntu ansible_password=ubuntu
+microk8s-master3 ansible_host=10.10.10.13 ansible_user=ubuntu ansible_password=ubuntu
+microk8s-worker1 ansible_host=10.10.10.14 ansible_user=ubuntu ansible_password=ubuntu
+microk8s-worker2 ansible_host=10.10.10.15 ansible_user=ubuntu ansible_password=ubuntu
+
 [control_plane]
 microk8s-master1 ansible_host=10.10.10.11 ansible_user=ubuntu ansible_password=ubuntu
 microk8s-master2 ansible_host=10.10.10.12 ansible_user=ubuntu ansible_password=ubuntu
@@ -14,12 +28,8 @@ microk8s-master3 ansible_host=10.10.10.13 ansible_user=ubuntu ansible_password=u
 microk8s-worker1 ansible_host=10.10.10.14 ansible_user=ubuntu ansible_password=ubuntu
 microk8s-worker2 ansible_host=10.10.10.15 ansible_user=ubuntu ansible_password=ubuntu
 
-[cluster_microk8s]
-microk8s-master1 ansible_host=10.10.10.11 ansible_user=ubuntu ansible_password=ubuntu
-microk8s-master2 ansible_host=10.10.10.12 ansible_user=ubuntu ansible_password=ubuntu
-microk8s-master3 ansible_host=10.10.10.13 ansible_user=ubuntu ansible_password=ubuntu
-microk8s-worker1 ansible_host=10.10.10.14 ansible_user=ubuntu ansible_password=ubuntu
-microk8s-worker2 ansible_host=10.10.10.15 ansible_user=ubuntu ansible_password=ubuntu
-
 [haproxy]
 haproxy-microk8s ansible_host=10.10.10.16 ansible_user=ubuntu ansible_password=ubuntu
+
+
+# quitar información redundante con el primer grupo coge la info host etc

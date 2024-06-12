@@ -29,7 +29,7 @@
 
 - name: Write kubeconfig to the user's .kube directory
   copy:
-    content: "{{ microk8s_kubeconfig.stdout }}"
+    content: "{{ microk8s_kubeconfig.stdout }}" # Revisar si la salida es la correcta
     dest: "{{ ansible_env.HOME }}/.kube/config"
     owner: "{{ ansible_user }}"
     mode: '0644'

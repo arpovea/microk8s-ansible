@@ -3,9 +3,9 @@
   apt:
     name: snapd
     state: present
-    update_cache: yes
+    update_cache: yes # Esto realmente es un bool es mejor utilizar true/false
 
-- name: Ensure snapd is running
+- name: Ensure snapd is running # Revisar systemd por tema de deprecado
   service:
     name: snapd
     state: started
@@ -23,3 +23,5 @@
     name: unzip
     state: present
   become: yes
+
+# Revisar tema de permisos Become, se hereda desde playbook, se puede especificar en false si quieres que una tarea concreta no se ejecute como sudo.

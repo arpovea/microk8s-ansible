@@ -7,3 +7,6 @@ nameservers:
 # Definicion de servidor NTP
 ntp_servers:
   - "ntp.ubuntu.com"
+
+
+## Mover a default las que normalmente van a cambiar
