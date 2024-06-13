@@ -8,7 +8,7 @@
   unarchive:
     src: "/tmp/kube-bench.tar.gz"
     dest: "/usr/local/bin/"
-    remote_src: yes
+    remote_src: true
 
 - name: Ensure Kube-bench is executable
   file:
@@ -24,13 +24,13 @@
   unarchive:
     src: "/tmp/kube-bench-config.zip"
     dest: "/tmp/"
-    remote_src: yes
+    remote_src: true
 
 - name: Copy Kube-bench config files
   copy:
     src: "/tmp/kube-bench-main/cfg"
     dest: "/usr/local/kube-bench/"
-    remote_src: yes
+    remote_src: true
 
 - name: Create directory for results on remote
   file:

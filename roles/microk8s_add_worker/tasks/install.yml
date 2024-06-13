@@ -3,16 +3,16 @@
   apt:
     name: snapd
     state: present
-    update_cache: yes
+    update_cache: true
 
 - name: Ensure snapd is running
   service:
     name: snapd
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Install MicroK8s
   snap:
     name: microk8s
-    classic: yes
+    classic: true
     state: present

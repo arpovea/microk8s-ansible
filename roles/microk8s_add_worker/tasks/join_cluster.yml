@@ -2,4 +2,4 @@
 - name: Join the MicroK8s cluster as worker
   shell: "/snap/bin/microk8s join {{ hostvars[groups['control_plane'][0]].ansible_host }}:25000/{{ hostvars[groups['control_plane'][0]].microk8s_join_token }} --worker"
   when: "'node/' + inventory_hostname not in hostvars[groups['control_plane'][0]].existing_nodes"
-  become: yes
+  become: true

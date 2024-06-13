@@ -12,4 +12,4 @@
   fetch:
     src: "/tmp/kube_bench_results/kube-bench-results.json"
     dest: "./kube_bench_results/kube-bench-results.json"
-    flat: yes
+    flat: true

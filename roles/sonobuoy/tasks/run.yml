@@ -16,7 +16,7 @@
   unarchive:
     src: "{{ sonobuoy_results_output.stdout }}"
     dest: "/tmp/sonobuoy_results"
-    remote_src: yes
+    remote_src: true
 
 - name: Compress Sonobuoy results
   archive:
@@ -34,8 +34,8 @@
   fetch:
     src: /tmp/sonobuoy_results.tar.gz
     dest: "./sonobuoy_results/sonobuoy_results.tar.gz"
-    flat: yes
+    flat: true
 
 - name: Delete Sonobuoy from the cluster
   command: "sonobuoy delete --wait"
-  ignore_errors: yes
+  ignore_errors: true

@@ -1,17 +1,19 @@
 ---
 - name: Update apt cache
   apt:
-    update_cache: yes
-  become: yes
+    update_cache: true
+  become: true
 
 - name: Upgrade all packages
   apt:
-    upgrade: yes
-  become: yes
+    upgrade: true
+  become: true
   
 - name: Set hostname
   hostname:
     name: "{{ inventory_hostname }}"
+
+#Revisar cambio DNS
 
 - name: Ensure DNS is configured
   template:
@@ -25,13 +27,14 @@
   apt:
     name: chrony
     state: present
-    update_cache: yes
-
+    update_cache: true
+    
+#Revisar si ubuntu 22 se puede ya con timedactl
 - name: Ensure chrony is running
   service:
     name: chrony
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Configure NTP servers
   template:

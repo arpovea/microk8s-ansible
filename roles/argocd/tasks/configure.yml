@@ -2,7 +2,7 @@
 - name: Get Argo CD initial admin password
   shell: "kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2 | xargs -I {} kubectl get secret {} -n argocd -o jsonpath='{.data.password}' | base64 -d"
   register: argocd_admin_password
-  become: yes
+  become: true
 
 - name: Create Argo CD ingress
   template:
@@ -11,7 +11,7 @@
 
 - name: Apply Argo CD ingress
   command: "/snap/bin/microk8s kubectl apply -f /tmp/argocd-ingress.yaml"
-  become: yes
+  become: true
 
 - name: Show Argo CD initial admin password
   debug:

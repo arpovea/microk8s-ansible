@@ -1,5 +1,0 @@
----
-- hosts: workers
-  become: yes
-  roles:
-    - microk8s_add_worker

@@ -3,4 +3,6 @@
   apt:
     name: haproxy
     state: present
-    update_cache: yes
+    update_cache: true
+
+#Cambiar a reinicio symtemd

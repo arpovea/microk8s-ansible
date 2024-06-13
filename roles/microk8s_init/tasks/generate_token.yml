@@ -9,7 +9,7 @@
 - name: Generate MicroK8s join token
   command: /snap/bin/microk8s add-node --token-ttl 3600
   register: join_token_output
-  become: yes
+  become: true
 
 - name: Extract join token
   set_fact:
@@ -18,7 +18,7 @@
 - name: Get list of current nodes in the cluster
   command: /snap/bin/microk8s kubectl get nodes -o name
   register: current_nodes
-  become: yes
+  become: true
 
 - name: Set fact for current nodes
   set_fact:

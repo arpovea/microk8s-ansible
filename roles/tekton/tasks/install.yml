@@ -1,15 +1,15 @@
 ---
 - name: Create Tekton namespace
   command: "/snap/bin/microk8s kubectl create namespace tekton-pipelines"
-  ignore_errors: yes
-  become: yes
+  ignore_errors: true
+  become: true
 
 - name: Download Tekton manifest
   get_url:
     url: "https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml"
     dest: "/tmp/tekton-pipeline-release.yaml"
-  become: yes
+  become: true
 
 - name: Apply Tekton manifest
   command: "/snap/bin/microk8s kubectl apply -f /tmp/tekton-pipeline-release.yaml"
-  become: yes
+  become: true

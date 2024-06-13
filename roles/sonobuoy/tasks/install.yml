@@ -8,7 +8,7 @@
   unarchive:
     src: "/tmp/sonobuoy.tar.gz"
     dest: "/usr/local/bin/"
-    remote_src: yes
+    remote_src: true
 
 - name: Ensure Sonobuoy is executable
   file:

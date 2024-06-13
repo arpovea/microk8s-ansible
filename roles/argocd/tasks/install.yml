@@ -1,18 +1,18 @@
 ---
 - name: Create Argo CD namespace
   command: "/snap/bin/microk8s kubectl create namespace argocd"
-  ignore_errors: yes
-  become: yes
+  ignore_errors: true
+  become: true
 
 - name: Download Argo CD manifest
   get_url:
     url: "https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
     dest: "/tmp/argocd-install.yaml"
-  become: yes
+  become: true
 
 - name: Apply Argo CD manifest
   command: "/snap/bin/microk8s kubectl apply -n argocd -f /tmp/argocd-install.yaml"
-  become: yes
+  become: true
 
 # Revisar utilizar modulos preinstalar.
 # Revisar para manejar el color de la tarea con register change when
