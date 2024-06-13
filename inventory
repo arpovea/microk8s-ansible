@@ -1,4 +1,4 @@
-# con esto ya se pillan los datos luego puedes definir variables generales o en los grupos []
+# All MV
 microk8s-master1 ansible_host=10.10.10.11 ansible_user=ubuntu ansible_password=ubuntu 
 microk8s-master2 ansible_host=10.10.10.12 ansible_user=ubuntu ansible_password=ubuntu
 microk8s-master3 ansible_host=10.10.10.13 ansible_user=ubuntu ansible_password=ubuntu
