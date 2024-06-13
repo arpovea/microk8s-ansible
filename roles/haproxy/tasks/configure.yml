@@ -6,5 +6,9 @@
     owner: root
     group: root
     mode: '0644'
-  notify:
-    - Restart HAProxy
+
+- name: Restart HAProxy
+  systemd:
+    name: haproxy
+    state: restarted
+  become: true
