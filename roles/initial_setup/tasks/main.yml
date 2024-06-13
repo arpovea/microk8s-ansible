@@ -1,53 +1,7 @@
 ---
-- name: Update apt cache
-  apt:
-    update_cache: true
-  become: true
+- name: Instalación y configuración de paquetes esenciales.
+  include_tasks: basic.yml
 
-- name: Upgrade all packages
-  apt:
-    upgrade: true
-  become: true
-  
-- name: Set hostname
-  hostname:
-    name: "{{ inventory_hostname }}"
-
-#Revisar cambio DNS
-
-- name: Ensure DNS is configured
-  template:
-    src: resolv.conf.j2
-    dest: /etc/resolv.conf
-    owner: root
-    group: root
-    mode: '0644'
-
-- name: Install chrony for time synchronization
-  apt:
-    name: chrony
-    state: present
-    update_cache: true
-    
-#Revisar si ubuntu 22 se puede ya con timedactl
-- name: Ensure chrony is running
-  service:
-    name: chrony
-    state: started
-    enabled: true
-
-- name: Configure NTP servers
-  template:
-    src: chrony.conf.j2
-    dest: /etc/chrony/chrony.conf
-    owner: root
-    group: root
-    mode: '0644'
-  notify:
-    - Restart chrony
-
-# Por experiencia es mejor reiniciar "a mano" mejor que el notify ya que este se ejecuta cuando finaliza el playbook y puede no ejecutarse en el momento que lo deseas.
-
-- name: Hold Snap packages to prevent automatic updates
-  command: snap refresh --hold microk8s
-  become: true
+- name: Instalación y configuración necesaria para microk8s.
+  include_tasks: microk8s.yml
+  when: "'cluster_microk8s' in group_names"
