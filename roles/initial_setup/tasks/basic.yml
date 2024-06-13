@@ -1,0 +1,55 @@
+---
+- name: Update apt cache and upgrade packages
+  apt:
+    update_cache: true
+    upgrade: true
+  become: true
+  
+- name: Set hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+  become: true
+
+- name: Crear lista de servidores DNS como una cadena
+  set_fact:
+    dns_servers: "{{ nameservers | join(' ') }}"
+    fallback_dns_servers: "{{ fallback_dns | join(' ') }}"
+
+- name: Configurar servidores DNS en /etc/systemd/resolved.conf
+  blockinfile:
+    path: "{{ resolved_conf_path }}"
+    block: |
+      [Resolve]
+      DNS={{ dns_servers }}
+      FallbackDNS={{ fallback_dns_servers }}
+      DNSStubListener=yes
+  become: true
+
+- name: Asegurarse de que systemd-resolved esté habilitado y reiniciado
+  systemd:
+    name: systemd-resolved
+    enabled: true
+    state: restarted
+  become: true
+
+- name: Install chrony for time synchronization
+  apt:
+    name: chrony
+    state: present
+  become: true
+
+- name: Configure NTP servers
+  template:
+    src: chrony.conf.j2
+    dest: /etc/chrony/chrony.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+
+- name: Ensure chrony is running
+  systemd:
+    name: chrony
+    enabled: true
+    state: restarted
+  become: true

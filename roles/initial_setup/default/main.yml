@@ -1,0 +1,15 @@
+---
+# Vars DNS
+nameservers:
+  - 8.8.8.8
+  - 8.8.4.4
+
+fallback_dns:
+  - 1.1.1.1
+  - 1.0.0.1
+
+resolved_conf_path: /etc/systemd/resolved.conf
+
+# Vars NTP
+ntp_servers:
+  - "ntp.ubuntu.com"
