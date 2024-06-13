@@ -62,5 +62,5 @@ backend k8s_back
     mode tcp
     balance roundrobin
     {% for node in k8s_control_plane %}
-    server {{ node.name }} {{ node.ip }}:6443 check
+    server {{ node.name }} {{ node.ip }}:16443 check
     {% endfor %}
