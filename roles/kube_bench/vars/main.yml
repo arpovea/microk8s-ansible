@@ -1,4 +1,0 @@
-# vars file for roles/kube-bench
----
-#Version Kube Bench
-kube_bench_version: "0.6.5"
