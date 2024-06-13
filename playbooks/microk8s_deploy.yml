@@ -37,7 +37,7 @@
     - microk8s_hold_updates
 
 - name: Play Install and configure HAProxy
-  host: haproxy
+  hosts: haproxy
   become: true
   roles:
     - haproxy
