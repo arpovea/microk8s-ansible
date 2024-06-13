@@ -1,0 +1,4 @@
+# vars file for roles/sonobuoy
+---
+#Versión Sonobuoy
+sonobuoy_version: "0.56.11"
