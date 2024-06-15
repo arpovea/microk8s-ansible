@@ -1,12 +1,18 @@
 ---
+# Addon DNS
 - name: Enable MicroK8s DNS addon
   command: /snap/bin/microk8s enable dns
+  when: addons.dns
 
+# Addon RBAC
 - name: Enable MicroK8s RBAC addon
   command: /snap/bin/microk8s enable rbac
+  when: addons.rbac
 
+# Addon MetalLB
 - name: Enable MicroK8s MetalLB addon
   shell: echo {{ metallb_ip_range }} | /snap/bin/microk8s enable metallb
+  when: addons.metallb
 
 - name: Wait for MetalLB namespace to be created
   command: /snap/bin/microk8s kubectl get ns metallb-system
@@ -14,36 +20,40 @@
   until: metallb_ns_check.rc == 0
   retries: 5
   delay: 10
-
-- name: Configure MetalLB IP range
-  template:
-    src: metallb-config.yaml.j2
-    dest: /tmp/metallb-config.yaml
-
-- name: Apply MetalLB configuration
-  command: /snap/bin/microk8s kubectl apply -f /tmp/metallb-config.yaml
-
+  when: addons.metallb
+  
+# Addon Ingress
 - name: Enable MicroK8s Ingress addon
-  command: /snap/bin/microk8s enable ingress  
+  command: /snap/bin/microk8s enable ingress
+  when: addons.ingress
 
 - name: Create Ingress Controller Service
   template:
     src: ingress-controller-service.yaml.j2
     dest: /tmp/ingress-controller-service.yaml
+  when: addons.ingress
 
 - name: Apply Ingress Controller Service
   command: /snap/bin/microk8s kubectl apply -f /tmp/ingress-controller-service.yaml
+  when: addons.ingress
 
+# Addon Metrics Server
 - name: Enable MicroK8s Metrics Server addon
   command: /snap/bin/microk8s enable metrics-server
+  when: addons["metrics_server"]
 
+# Addon Dashboard
 - name: Enable MicroK8s Dashboard addon
   command: /snap/bin/microk8s enable dashboard
+  when: addons.dashboard
+## Mirar lo del rbac
 
-#- name: Enable MicroK8s Storage addon
-#  command: /snap/bin/microk8s enable storage
+# Addon Storage
+- name: Enable MicroK8s Storage addon
+  command: /snap/bin/microk8s enable storage
+  when: addons.storage
 
-#- name: Enable MicroK8s Registry addon
-#  command: /snap/bin/microk8s enable registry
-
-
+# Addon Registry
+- name: Enable MicroK8s Registry addon
+  command: /snap/bin/microk8s enable registry
+  when: addons.registry

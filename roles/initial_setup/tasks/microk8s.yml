@@ -26,23 +26,11 @@
   become: true
   when: "'control_plane' in group_names"
 
-- name: Create .kube directory if it does not exist
-  file:
-    path: "{{ ansible_env.HOME }}/.kube"
-    state: directory
-    owner: "{{ ansible_user }}"
-    mode: '0755'
-  become: true
-  when: "'control_plane' in group_names"
-
-- name: Allow the user to access kubeconfig
-  file:
-    path: "{{ ansible_env.HOME }}/.kube"
-    state: directory
-    owner: "{{ ansible_user }}"
-    recurse: true
-  become: true
-  when: "'control_plane' in group_names"
+- name: Create kubectl alias
+  become: yes
+  command: "snap alias microk8s.kubectl kubectl"
+  changed_when: false
+  register: aliaskubectlout
 
 # Necesario para kube-bench
 - name: Ensure unzip is installed

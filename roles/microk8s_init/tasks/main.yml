@@ -1,7 +1,4 @@
 ---
-- name: Install MicroK8s
-  include_tasks: install.yml
-
 - name: Configure user MicroK8s
   include_tasks: configure_user.yml
 

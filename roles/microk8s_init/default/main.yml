@@ -4,3 +4,15 @@ metallb_ip_range: 10.10.10.150-10.10.10.160
 
 # Definicion de IP para ingress-controller (tipo load balancer)
 ip_ingress_controller: 10.10.10.151
+
+# Instalar Addons generales en el primer control plane.
+
+addons:
+  dns: true
+  rbac: true
+  metallb: true
+  ingress: true
+  metrics_server: true
+  dashboard: true
+  storage: true
+  registry: true

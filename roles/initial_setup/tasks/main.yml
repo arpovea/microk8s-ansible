@@ -5,3 +5,7 @@
 - name: Instalación y configuración necesaria para microk8s.
   include_tasks: microk8s.yml
   when: "'cluster_microk8s' in group_names"
+
+- name: Enable kube-ovn
+  include_task: microk8s_kube-ovn.yml
+  when: "'cluster_microk8s' in group_names"
