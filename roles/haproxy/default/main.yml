@@ -1,4 +1,7 @@
 ---
+# Enable HAPROXY
+enable_haproxy: true
+
 # Nodos Worker para HAPROXY
 k8s_nodes:
   - name: microk8s-master1
