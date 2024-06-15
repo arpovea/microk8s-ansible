@@ -1,6 +1,6 @@
 ---
 - name: Wait for MicroK8s to be ready
-  shell: "microk8s status --wait-ready"
+  shell: "/snap/bin/microk8s microk8s status --wait-ready"
   retries: 10
   delay: 10
   register: microk8s_status

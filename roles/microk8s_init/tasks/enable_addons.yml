@@ -1,9 +1,4 @@
 ---
-# Addon DNS
-- name: Enable MicroK8s DNS addon
-  command: /snap/bin/microk8s enable dns
-  when: addons.dns
-
 # Addon RBAC
 - name: Enable MicroK8s RBAC addon
   command: /snap/bin/microk8s enable rbac

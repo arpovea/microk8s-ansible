@@ -1,7 +1,4 @@
 ---
-- name: Configure user MicroK8s
-  include_tasks: configure_user.yml
-
 - name: Enable MicroK8s Addons
   include_tasks: enable_addons.yml
 
