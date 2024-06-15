@@ -1,6 +1,56 @@
 ---
-- name: Disable calico
-  command: /snap/bin/microk8s disable calico
+# Meter when
+- name: Create the configuration directory
+  file:
+    path: /var/snap/microk8s/common
+    state: directory
+    mode: '0755'
+  become: true
 
-- name: Enable MicroK8s DNS addon
-  command: /snap/bin/microk8s enable kube-ovn pod-cidr=10.244.0.0/16 service-cidr=10.96.0.0/12
+- name: Copy the launch configuration file
+  template:
+    src: microk8s-config.yaml.j2
+    dest: /var/snap/microk8s/common/.microk8s.yaml
+    mode: '0644'
+  become: true
+
+- name: Ensure snapd is running
+  systemd:
+    name: snapd
+    state: started
+    enabled: true
+  become: true
+
+- name: Install MicroK8s
+  snap:
+    name: microk8s
+    classic: true
+    state: present
+  channel: "{{ microk8s_version }}"
+  become: true
+
+- name: Hold Snap packages to prevent automatic updates
+  command: snap refresh --hold microk8s
+  become: true
+
+- name: Add user to microk8s group
+  user:
+    name: "{{ ansible_user }}"
+    groups: microk8s
+    append: true
+  become: true
+  when: "'control_plane' in group_names"
+
+- name: Create kubectl alias
+  become: yes
+  command: "snap alias microk8s.kubectl kubectl"
+  changed_when: false
+  register: aliaskubectlout
+
+# Necesario para kube-bench
+- name: Ensure unzip is installed
+  apt:
+    name: unzip
+    state: present
+  become: true
+  when: "'control_plane_primary' in group_names"

@@ -13,3 +13,11 @@ resolved_conf_path: /etc/systemd/resolved.conf
 # Vars NTP
 ntp_servers:
   - "ntp.ubuntu.com"
+
+# Versión Microk8s
+microk8s_version: "1.30/stable"
+
+# Networking Microk8s with kube-ovn
+enable_kube_ovn: true
+pod_network_cidr: "10.16.0.0/16"
+service_network_cidr: "10.96.0.0/12"

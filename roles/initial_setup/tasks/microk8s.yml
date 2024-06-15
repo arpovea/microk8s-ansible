@@ -12,6 +12,7 @@
     name: microk8s
     classic: true
     state: present
+  channel: "{{ microk8s_version }}"
   become: true
 
 - name: Hold Snap packages to prevent automatic updates
