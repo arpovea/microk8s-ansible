@@ -4,7 +4,15 @@
     update_cache: true
     upgrade: true
   become: true
-  
+
+# Necesario para kube-bench
+- name: Ensure unzip is installed
+  apt:
+    name: unzip
+    state: present
+  become: true
+  when: "'control_plane_primary' in group_names"
+
 - name: Set hostname
   hostname:
     name: "{{ inventory_hostname }}"

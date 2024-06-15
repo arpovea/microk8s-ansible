@@ -2,10 +2,14 @@
 - name: Instalación y configuración de paquetes esenciales.
   include_tasks: basic.yml
 
-- name: Instalación y configuración necesaria para microk8s.
+- name: Instalación y configuración necesaria para microk8s sin OVN.
   include_tasks: microk8s.yml
-  when: "'cluster_microk8s' in group_names"
+  when: 
+    - "'cluster_microk8s' in group_names"
+    - not enable_kube_ovn
 
-- name: Enable kube-ovn
+- name: Instalación y configuración necesaria para microk8s con OVN
   include_task: microk8s_kube-ovn.yml
-  when: "'cluster_microk8s' in group_names"
+  when: 
+    - "'cluster_microk8s' in group_names"
+    - enable_kube_ovn

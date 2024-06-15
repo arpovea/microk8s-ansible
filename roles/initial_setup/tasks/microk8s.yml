@@ -32,11 +32,3 @@
   command: "snap alias microk8s.kubectl kubectl"
   changed_when: false
   register: aliaskubectlout
-
-# Necesario para kube-bench
-- name: Ensure unzip is installed
-  apt:
-    name: unzip
-    state: present
-  become: true
-  when: "'control_plane_primary' in group_names"

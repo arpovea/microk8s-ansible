@@ -21,3 +21,4 @@ microk8s_version: "1.30/stable"
 enable_kube_ovn: true
 pod_network_cidr: "10.16.0.0/16"
 service_network_cidr: "10.96.0.0/12"
+dns_ip: "10.96.0.10" 

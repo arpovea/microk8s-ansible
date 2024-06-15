@@ -5,6 +5,7 @@ extraKubeletArgs:
   --cluster-domain: cluster.local
   --cluster-cidr: {{ pod_network_cidr }}
   --service-cidr: {{ service_network_cidr }}
+  --cluster-dns: {{ dns_ip }}
 addons:
   - name: dns
   {% if enable_kube_ovn %}

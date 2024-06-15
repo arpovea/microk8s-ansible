@@ -1,18 +1,25 @@
 ---
-# Meter when
+- name: Check if MicroK8s is installed
+  command: /snap/bin/microk8s status --wait-ready
+  register: microk8s_status
+  failed_when: false
+  changed_when: false
+
 - name: Create the configuration directory
   file:
     path: /var/snap/microk8s/common
     state: directory
     mode: '0755'
   become: true
-
+  when: microk8s_status.rc != 0
+  
 - name: Copy the launch configuration file
   template:
     src: microk8s-config.yaml.j2
     dest: /var/snap/microk8s/common/.microk8s.yaml
     mode: '0644'
   become: true
+  when: microk8s_status.rc != 0
 
 - name: Ensure snapd is running
   systemd:
@@ -20,6 +27,7 @@
     state: started
     enabled: true
   become: true
+  when: microk8s_status.rc != 0
 
 - name: Install MicroK8s
   snap:
@@ -28,10 +36,25 @@
     state: present
   channel: "{{ microk8s_version }}"
   become: true
+  when: microk8s_status.rc != 0
 
 - name: Hold Snap packages to prevent automatic updates
   command: snap refresh --hold microk8s
   become: true
+  when: microk8s_status.rc != 0
+
+- name: Disable Calico
+  command: /snap/bin/microk8s disable calico
+  changed_when: false
+  register: disable_calico
+
+- name: Enable kube-ovn with specific network settings
+  command: /snap/bin/microk8s enable kube-ovn --default-cidr {{ pod_network_cidr }} --svc-cidr {{ service_network_cidr }} --cluster-dns {{ dns_ip }}
+  register: enable_kube_ovn_result
+
+- name: Restart MicroK8s to apply configuration changes
+  command: /snap/bin/microk8s stop && /snap/bin/microk8s start
+  when: enable_kube_ovn_result is changed
 
 - name: Add user to microk8s group
   user:
@@ -46,11 +69,3 @@
   command: "snap alias microk8s.kubectl kubectl"
   changed_when: false
   register: aliaskubectlout
-
-# Necesario para kube-bench
-- name: Ensure unzip is installed
-  apt:
-    name: unzip
-    state: present
-  become: true
-  when: "'control_plane_primary' in group_names"
