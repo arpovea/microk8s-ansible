@@ -1,0 +1,3 @@
+---
+# Enable Tekton
+enable_tekton: false
