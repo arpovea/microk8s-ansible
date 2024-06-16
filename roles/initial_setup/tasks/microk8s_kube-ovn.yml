@@ -47,14 +47,17 @@
   command: /snap/bin/microk8s disable calico
   changed_when: false
   register: disable_calico
+  become: true
 
 - name: Enable kube-ovn with specific network settings
   command: /snap/bin/microk8s enable kube-ovn --default-cidr {{ pod_network_cidr }} --svc-cidr {{ service_network_cidr }} --cluster-dns {{ dns_ip }}
   register: enable_kube_ovn_result
+  become: true
 
 - name: Restart MicroK8s to apply configuration changes
   command: /snap/bin/microk8s stop && /snap/bin/microk8s start
   when: enable_kube_ovn_result is changed
+  become: true
 
 - name: Add user to microk8s group
   user:
@@ -62,10 +65,9 @@
     groups: microk8s
     append: true
   become: true
-  when: "'control_plane' in group_names"
 
 - name: Create kubectl alias
-  become: yes
   command: "snap alias microk8s.kubectl kubectl"
   changed_when: false
   register: aliaskubectlout
+  become: true

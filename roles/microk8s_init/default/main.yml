@@ -8,7 +8,6 @@ ip_ingress_controller: 10.10.10.151
 # Instalar Addons generales en el primer control plane.
 
 addons:
-  dns: true
   rbac: true
   metallb: true
   ingress: true

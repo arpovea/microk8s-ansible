@@ -1,11 +1,18 @@
 
 ---
+- name: Check if MicroK8s is installed
+  command: /snap/bin/microk8s status --wait-ready
+  register: microk8s_status
+  failed_when: false
+  changed_when: false
+
 - name: Ensure snapd is running
   systemd:
     name: snapd
     state: started
     enabled: true
   become: true
+  when: microk8s_status.rc != 0
 
 - name: Install MicroK8s
   snap:
@@ -14,9 +21,22 @@
     state: present
   channel: "{{ microk8s_version }}"
   become: true
+  when: microk8s_status.rc != 0
 
 - name: Hold Snap packages to prevent automatic updates
   command: snap refresh --hold microk8s
+  become: true
+  when: microk8s_status.rc != 0
+
+- name: Disable kube-ovn
+  command: /snap/bin/microk8s disable kube-ovn
+  changed_when: false
+  register: disable_kube_ovn_result
+  become: true
+
+- name: Restart MicroK8s to apply configuration changes
+  command: /snap/bin/microk8s stop && /snap/bin/microk8s start
+  when: disable_kube_ovn_result is changed
   become: true
 
 - name: Add user to microk8s group
@@ -25,7 +45,6 @@
     groups: microk8s
     append: true
   become: true
-  when: "'control_plane' in group_names"
 
 - name: Create kubectl alias
   become: yes
