@@ -1,9 +1,0 @@
----
-- name: Install MicroK8s
-  include_tasks: install.yml
-
-- name: Configure MicroK8s
-  include_tasks: configure.yml
-
-- name: Join the MicroK8s cluster
-  include_tasks: join_cluster.yml

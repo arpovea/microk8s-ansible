@@ -1,3 +1,0 @@
----
-- name: Join the MicroK8s cluster
-  include_tasks: join_cluster.yml

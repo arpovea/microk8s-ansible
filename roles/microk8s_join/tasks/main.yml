@@ -1,0 +1,8 @@
+---
+- name: Join the MicroK8s cluster as control plane
+  include_tasks: join_cluster_cp.yml
+  when: "'control_plane_additional' in group_names"
+
+- name: Join the MicroK8s cluster as worker
+  include_tasks: join_cluster_worker.yml
+  when: "'workers' in group_names"
