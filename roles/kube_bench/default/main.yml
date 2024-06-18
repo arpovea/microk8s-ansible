@@ -1,4 +1,8 @@
 # vars file for roles/kube-bench
 ---
+# Enable Kube Bench
+enable_kube_bench: false
+
 #Version Kube Bench
 kube_bench_version: "0.6.5"
+

@@ -1,6 +1,8 @@
 ---
 - name: Install Kube Bench
   include_tasks: install.yml
+  when: enable_kube_bench
 
 - name: Run Kube Bench
   include_tasks: run.yml
+  when: enable_kube_bench
