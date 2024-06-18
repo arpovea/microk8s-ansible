@@ -3,7 +3,7 @@
   hosts: all
   become: true
   roles:
-    - basic_setup
+    - initial_setup
 
 - name: Play Control Plane Primary
   hosts: control_plane_primary
@@ -11,17 +11,11 @@
   roles:
     - microk8s_init
 
-- name: Play Add Control plane Additional
+- name: Play Add Nodes Additional
   hosts: control_plane_additional
   become: true
   roles:
-    - microk8s_add_control_plane
-
-- name: Play Add Workers
-  hosts: workers
-  become: true
-  roles:
-    - microk8s_add_worker
+    - microk8s_join
 
 - name: Play Deploy Services
   hosts: control_plane_primary
@@ -29,12 +23,6 @@
   roles:
     - argocd
     - tekton
-
-- name: Play Hold Updates
-  hosts: cluster_microk8s
-  become: true
-  roles:
-    - microk8s_hold_updates
 
 - name: Play Install and configure HAProxy
   hosts: haproxy
