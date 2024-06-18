@@ -1,3 +1,4 @@
 ---
-- name: Deploy ArgoCD
+- name: Deploy Tekton
   include_tasks: install.yml
+  when: enable_tekton
