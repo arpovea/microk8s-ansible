@@ -1,3 +1,3 @@
-## ADD Nodes
+## Microk8s Join
 
-Tarea pra agregar nodes tanto worker como control planes.
+Este rol se encarga de agregar los nodos de tipo control plane y workers al cluster de microk8s.

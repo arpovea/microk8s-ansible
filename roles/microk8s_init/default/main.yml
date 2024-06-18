@@ -9,9 +9,9 @@ ip_ingress_controller: 10.10.10.151
 
 addons:
   rbac: true
-  metallb: true
+  metallb: false
   ingress: true
   metrics_server: true
   dashboard: true
-  storage: true
-  registry: true
+  storage: false
+  registry: false

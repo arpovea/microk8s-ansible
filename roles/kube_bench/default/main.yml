@@ -1,4 +1,3 @@
-# vars file for roles/kube-bench
 ---
 # Enable Kube Bench
 enable_kube_bench: false
