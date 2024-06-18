@@ -1,8 +1,31 @@
 ---
+---
 - name: Get Argo CD initial admin password
-  shell: "kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2 | xargs -I {} kubectl get secret {} -n argocd -o jsonpath='{.data.password}' | base64 -d"
-  register: argocd_admin_password
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Pod
+    namespace: argocd
+    label_selectors:
+      - app.kubernetes.io/name=argocd-server
+  register: argocd_pods
   become: true
+
+- name: Get Argo CD admin password from secret
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Secret
+    name: "{{ item.metadata.name }}"
+    namespace: argocd
+  register: argocd_admin_secret
+  become: true
+  with_items: "{{ argocd_pods.resources }}"
+  when: "'argocd-server' in item.metadata.name"
+
+- name: Decode Argo CD admin password
+  set_fact:
+    argocd_admin_password: "{{ item.data.password | b64decode }}"
+  with_items: "{{ argocd_admin_secret.resources }}"
+  when: item.kind == 'Secret'
 
 - name: Create Argo CD ingress
   template:
@@ -10,9 +33,12 @@
     dest: /tmp/argocd-ingress.yaml
 
 - name: Apply Argo CD ingress
-  command: "/snap/bin/microk8s kubectl apply -f /tmp/argocd-ingress.yaml"
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', '/tmp/argocd-ingress.yaml') | from_yaml }}"
   become: true
 
 - name: Show Argo CD initial admin password
   debug:
-    msg: "Argo CD initial admin password is: {{ argocd_admin_password.stdout }}"
+    msg: "Argo CD initial admin password is: {{ argocd_admin_password }}"
+

@@ -1,6 +1,12 @@
 ---
 - name: Create Tekton namespace
-  command: "/snap/bin/microk8s kubectl create namespace tekton-pipelines"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: tekton-pipelines
   ignore_errors: true
   become: true
 
@@ -11,5 +17,8 @@
   become: true
 
 - name: Apply Tekton manifest
-  command: "/snap/bin/microk8s kubectl apply -f /tmp/tekton-pipeline-release.yaml"
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', '/tmp/tekton-pipeline-release.yaml') | from_yaml }}"
+    namespace: tekton-pipelines
   become: true

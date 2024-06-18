@@ -1,6 +1,13 @@
 ---
+---
 - name: Create Argo CD namespace
-  command: "/snap/bin/microk8s kubectl create namespace argocd"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: argocd
   ignore_errors: true
   become: true
 
@@ -11,8 +18,8 @@
   become: true
 
 - name: Apply Argo CD manifest
-  command: "/snap/bin/microk8s kubectl apply -n argocd -f /tmp/argocd-install.yaml"
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', '/tmp/argocd-install.yaml') | from_yaml }}"
+    namespace: argocd
   become: true
-
-# Revisar utilizar modulos preinstalar.
-# Revisar para manejar el color de la tarea con register change when
