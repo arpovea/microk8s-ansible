@@ -4,4 +4,14 @@
   when: "'node/' + inventory_hostname not in hostvars[groups['control_plane'][0]].existing_nodes"
   become: true
 
-
+- name: Apply label to control plane additional nodes for HA 
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Node
+      metadata:
+        name: "{{ inventory_hostname }}"
+        labels:
+          kube-ovn/role: master
+  when: label_nodes | default(false)
