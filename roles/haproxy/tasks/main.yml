@@ -1,6 +1,8 @@
 ---
 - name: Install HAProxy
   include_tasks: install.yml
+  when: enable_haproxy
 
 - name: Configure HAProxy
   include_tasks: configure.yml
+  when: enable_haproxy

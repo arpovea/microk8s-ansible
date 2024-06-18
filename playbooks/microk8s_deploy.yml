@@ -48,5 +48,3 @@
   roles:
     - sonobuoy
     - kube_bench
-
- # Nombre completo ansible FQDN  (modulo)
