@@ -47,7 +47,7 @@
   become: true
 
 - name: Create kubectl alias
-  become: yes
+  become: true
   command: "snap alias microk8s.kubectl kubectl"
   changed_when: false
   register: aliaskubectlout
