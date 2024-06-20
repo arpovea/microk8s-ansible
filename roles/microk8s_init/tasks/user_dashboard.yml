@@ -26,9 +26,12 @@
         name: cluster-admin
         apiGroup: rbac.authorization.k8s.io
 
-- name: Obtener el token del ServiceAccount del Dashboard
-  command: >
-    kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep dashboard-admin-sa | awk '{print $1}')
+- name: Obtener el nombre del secreto del ServiceAccount del Dashboard
+  shell: kubectl -n kube-system get secret | grep dashboard-admin-sa | awk '{print $1}'
+  register: secret_name
+
+- name: Obtener y decodificar el token del ServiceAccount del Dashboard
+  shell: kubectl -n kube-system get secret {{ secret_name.stdout }} -o jsonpath="{.data.token}" | base64 --decode
   register: dashboard_token_output
 
 - name: Mostrar el token del Dashboard
