@@ -1,0 +1,36 @@
+---
+- name: Crear ServiceAccount para el Dashboard
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: dashboard-admin-sa
+        namespace: kube-system
+
+- name: Crear ClusterRoleBinding para el ServiceAccount del Dashboard
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: dashboard-admin-sa
+      subjects:
+        - kind: ServiceAccount
+          name: dashboard-admin-sa
+          namespace: kube-system
+      roleRef:
+        kind: ClusterRole
+        name: cluster-admin
+        apiGroup: rbac.authorization.k8s.io
+
+- name: Obtener el token del ServiceAccount del Dashboard
+  command: >
+    kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep dashboard-admin-sa | awk '{print $1}')
+  register: dashboard_token_output
+
+- name: Mostrar el token del Dashboard
+  debug:
+    msg: "El token del ServiceAccount del Dashboard es: {{ dashboard_token_output.stdout }}"

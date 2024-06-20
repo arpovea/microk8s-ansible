@@ -4,3 +4,9 @@
 
 - name: Generate Join token
   include_tasks: generate_token.yml
+
+- name: Generate User Dashboard
+  include_task: user_dashboard.yml
+  when:
+    - addons.rbac
+    - addons.dashboard
