@@ -19,7 +19,7 @@
   
 - name: Copy the launch configuration file
   template:
-    src: microk8s-config.yaml.j2
+    src: microk8s-config-ovn.yaml.j2
     dest: /var/snap/microk8s/common/.microk8s.yaml
     mode: '0644'
   become: true

@@ -22,3 +22,7 @@ enable_kube_ovn: true
 pod_network_cidr: "10.16.0.0/16"
 service_network_cidr: "10.96.0.0/12"
 dns_ip: "10.96.0.10" 
+
+# Extra
+load_balancer_ip: "192.168.1.100"
+load_balancer_dns: "loadbalancer.example.com"

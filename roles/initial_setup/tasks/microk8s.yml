@@ -6,6 +6,22 @@
   failed_when: false
   changed_when: false
 
+- name: Create the configuration directory
+  file:
+    path: /var/snap/microk8s/common
+    state: directory
+    mode: '0755'
+  become: true
+  when: microk8s_status.rc != 0
+  
+- name: Copy the launch configuration file
+  template:
+    src: microk8s-config-no-ovn.yaml.j2
+    dest: /var/snap/microk8s/common/.microk8s.yaml
+    mode: '0644'
+  become: true
+  when: microk8s_status.rc != 0
+
 - name: Ensure snapd is running
   systemd:
     name: snapd
