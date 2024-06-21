@@ -32,3 +32,10 @@ Este rol se encarga de realizar la instalación de la paqueteria y configuracion
 | `pod_network_cidr`    | Rango de IP para la red de pods.                                           | `10.16.0.0/16`          |
 | `service_network_cidr`| Rango de IP para la red de servicios.                                      | `10.96.0.0/12`          |
 | `dns_ip`              | Dirección IP del servidor DNS dentro del clúster.                          | `10.96.0.10`            |
+
+### Configuración de IP y DNS adicionales para el API server
+
+| Variable              | Descripción                                                                | Valor por defecto              |
+|-----------------------|----------------------------------------------------------------------------|--------------------------------|
+| `load_balancer_ip`    | IP del balanceador de carga para incluir en el certificado del API server. | `192.168.1.100`                |
+| `load_balancer_dns`   | DNS del balanceador de carga para incluir en el certificado del API server.| `api-microk8s.arpovea.com`     |
