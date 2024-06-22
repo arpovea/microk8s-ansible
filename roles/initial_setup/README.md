@@ -37,5 +37,6 @@ Este rol se encarga de realizar la instalación de la paqueteria y configuracion
 
 | Variable              | Descripción                                                                | Valor por defecto              |
 |-----------------------|----------------------------------------------------------------------------|--------------------------------|
+| `enable_extra_certs`    | Habilitar el uso de IP y DNS para incluirlos en el certificado del API server. | `true`                |
 | `load_balancer_ip`    | IP del balanceador de carga para incluir en el certificado del API server. | `192.168.1.100`                |
 | `load_balancer_dns`   | DNS del balanceador de carga para incluir en el certificado del API server.| `api-microk8s.arpovea.com`     |
