@@ -25,5 +25,5 @@ dns_ip: "10.96.0.10"
 
 # Extra IP and DNS for CERTS API
 enable_extra_certs: true
-load_balancer_ip: "192.168.1.100"
+load_balancer_ip: "10.10.10.16"
 load_balancer_dns: "api-microk8s.arpovea.com"

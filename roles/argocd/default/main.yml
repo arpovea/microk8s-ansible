@@ -1,6 +1,6 @@
 ---
 # Enable argocd
-enable_argocd: false
+enable_argocd: true
 
 # Variable del host de argocd
-argocd_host: "argocd.example.com"
+argocd_host: "argocd.arpovea.com"

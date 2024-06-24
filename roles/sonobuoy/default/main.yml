@@ -1,6 +1,6 @@
 ---
 # Enable Sonobuoy
-enable_sonobuoy: false
+enable_sonobuoy: true
 
 # Versión Sonobuoy
 sonobuoy_version: "0.56.11"

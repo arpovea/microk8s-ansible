@@ -1,6 +1,6 @@
 ---
 # Enable Kube Bench
-enable_kube_bench: false
+enable_kube_bench: true
 
 # Versión Kube Bench
 kube_bench_version: "0.6.5"
