@@ -52,15 +52,21 @@
 #   register: disable_calico
 #   become: true
 
-- name: Enable kube-ovn with specific network settings
-  command: /snap/bin/microk8s enable kube-ovn --default-cidr {{ pod_network_cidr }} --svc-cidr {{ service_network_cidr }} --cluster-dns {{ dns_ip }}
-  register: enable_kube_ovn_result
-  become: true
+# - name: Enable kube-ovn with specific network settings
+#   command: /snap/bin/microk8s enable kube-ovn --default-cidr {{ pod_network_cidr }} --svc-cidr {{ service_network_cidr }} --cluster-dns {{ dns_ip }}
+#   register: enable_kube_ovn_result
+#   become: true
 
-- name: Restart MicroK8s to apply configuration changes
-  command: /snap/bin/microk8s stop && /snap/bin/microk8s start
-  when: enable_kube_ovn_result is changed
-  become: true
+# - name: Restart MicroK8s to apply configuration changes
+#   command: /snap/bin/microk8s stop && /snap/bin/microk8s start
+#   when: enable_kube_ovn_result is changed
+#   become: true
+
+- name: Check if MicroK8s is installed
+  command: /snap/bin/microk8s status --wait-ready
+  register: microk8s_status
+  failed_when: false
+  changed_when: false
 
 - name: Scale Deployment to 5 replicas
   kubernetes.core.k8s:
@@ -74,6 +80,7 @@
       spec:
         replicas: 3
   ignore_errors: true
+  when: microk8s_status.rc != 0
 
 - name: Add user to microk8s group
   user:
