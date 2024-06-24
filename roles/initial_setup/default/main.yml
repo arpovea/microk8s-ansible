@@ -1,8 +1,8 @@
 ---
 # Vars DNS
 nameservers:
+  - 10.10.10.3
   - 8.8.8.8
-  - 8.8.4.4
 
 fallback_dns:
   - 1.1.1.1
