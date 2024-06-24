@@ -29,7 +29,6 @@
   systemd:
     name: snapd
     state: started
-    enabled: true
   become: true
   when: microk8s_status.rc != 0
 
