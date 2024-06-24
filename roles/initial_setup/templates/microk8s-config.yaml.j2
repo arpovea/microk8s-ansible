@@ -4,7 +4,6 @@ version: 0.1.0
 extraKubeletArgs:
   --cluster-domain: cluster.local
   --cluster-dns: {{ dns_ip }}
-{% if enable_extra_certs %}
 extraApiServerArgs:
   --service-cluster-ip-range={{ service_network_cidr }}
   --pod-network-cidr={{ pod_network_cidr }}
