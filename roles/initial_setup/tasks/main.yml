@@ -9,7 +9,7 @@
     - not enable_kube_ovn
 
 - name: Instalación y configuración necesaria para microk8s con OVN
-  include_task: microk8s_kube-ovn.yml
+  include_tasks: microk8s_kube-ovn.yml
   when: 
     - "'cluster_microk8s' in group_names"
     - enable_kube_ovn
