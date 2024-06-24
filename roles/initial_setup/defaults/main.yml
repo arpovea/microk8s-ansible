@@ -8,7 +8,7 @@ fallback_dns:
   - 1.1.1.1
   - 1.0.0.1
 
-resolved_conf_path: /etc/systemd/resolved.conf
+resolved_conf_path: "/etc/systemd/resolved.conf"
 
 # Vars NTP
 ntp_servers:
