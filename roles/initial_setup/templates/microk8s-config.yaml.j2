@@ -6,9 +6,12 @@ extraKubeletArgs:
   --cluster-cidr: {{ pod_network_cidr }}
   --service-cidr: {{ service_network_cidr }}
   --cluster-dns: {{ dns_ip }}
+{% if enable_extra_certs %}
+extraApiServerArgs:
+  --apiserver-cert-extra-sans={{ load_balancer_ip }},{{ load_balancer_dns }}
+{% endif %}
 addons:
-  - name: dns
-  {% if enable_kube_ovn %}
-  - name: kube-ovn
-    args: [--force]
-  {% endif %}
+- name: dns
+{% if enable_kube_ovn %}
+- name: kube-ovn
+{% endif %}
