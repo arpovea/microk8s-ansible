@@ -13,7 +13,7 @@ extraSANs:
   - {{ load_balancer_dns }}
 {% endif %}
 addons:
-  - name: dns
-  {% if enable_kube_ovn %}
-  - name: kube-ovn
-  {% endif %}
+- name: dns
+{% if enable_kube_ovn %}
+- name: kube-ovn
+{% endif %}
