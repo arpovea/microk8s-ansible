@@ -1,16 +1,22 @@
 # Default launch configuration for MicroK8s.
 ---
+version: 0.1.0
+extraKubeletArgs:
+  --cluster-dns: {{ dns_ip }}
+  --cluster-domain: cluster.local
+addons:
+  - name: dns
+  {% if enable_kube_ovn %}
+  - name: kube-ovn
+    args: [--force]
+  {% endif %}
+---
 version: 0.2.0
 extraCNIEnv:
   IPv4_CLUSTER_CIDR: "{{ pod_network_cidr }}"
   IPv4_SERVICE_CIDR: "{{ service_network_cidr }}"
-extraKubeletArgs:
-  --cluster-dns: {{ dns_ip }}
-  --cluster-domain: cluster.local
 {% if enable_extra_certs %}
 extraSANs:
   - {{ load_balancer_ip }}
   - {{ load_balancer_dns }}
 {% endif %}
-addons:
-- name: dns
