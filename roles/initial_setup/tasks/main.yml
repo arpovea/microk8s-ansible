@@ -1,6 +1,6 @@
 ---
 - name: Instalación y configuración de paquetes esenciales.
-  include_tasks: basic.yml
+  import_tasks: basic.yml
 
 - name: Instalación y configuración necesaria para microk8s sin OVN.
   include_tasks: microk8s.yml
