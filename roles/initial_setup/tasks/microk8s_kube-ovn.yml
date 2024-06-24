@@ -46,21 +46,21 @@
   become: true
   when: microk8s_status.rc != 0
 
-- name: Disable Calico
-  command: /snap/bin/microk8s disable calico
-  changed_when: false
-  register: disable_calico
-  become: true
+# - name: Disable Calico
+#   command: /snap/bin/microk8s disable calico
+#   changed_when: false
+#   register: disable_calico
+#   become: true
 
-- name: Enable kube-ovn with specific network settings
-  command: /snap/bin/microk8s enable kube-ovn --default-cidr {{ pod_network_cidr }} --svc-cidr {{ service_network_cidr }} --cluster-dns {{ dns_ip }}
-  register: enable_kube_ovn_result
-  become: true
+# - name: Enable kube-ovn with specific network settings
+#   command: /snap/bin/microk8s enable kube-ovn --default-cidr {{ pod_network_cidr }} --svc-cidr {{ service_network_cidr }} --cluster-dns {{ dns_ip }}
+#   register: enable_kube_ovn_result
+#   become: true
 
-- name: Restart MicroK8s to apply configuration changes
-  command: /snap/bin/microk8s stop && /snap/bin/microk8s start
-  when: enable_kube_ovn_result is changed
-  become: true
+# - name: Restart MicroK8s to apply configuration changes
+#   command: /snap/bin/microk8s stop && /snap/bin/microk8s start
+#   when: enable_kube_ovn_result is changed
+#   become: true
 
 - name: Scale Deployment to 5 replicas
   kubernetes.core.k8s:
