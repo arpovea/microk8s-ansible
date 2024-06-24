@@ -18,4 +18,5 @@ addons:
   - name: dns
   {% if enable_kube_ovn %}
   - name: kube-ovn
+    args: [--force]
   {% endif %}
