@@ -38,7 +38,7 @@
     name: microk8s
     classic: true
     state: present
-  channel: "{{ microk8s_version }}"
+    channel: "{{ microk8s_version }}"
   become: true
   when: microk8s_status.rc != 0
 
