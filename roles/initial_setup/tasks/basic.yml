@@ -18,6 +18,11 @@
     name: "{{ inventory_hostname }}"
   become: true
 
+##Debug
+- name: Verificar variables de DNS
+  debug:
+    msg: "nameservers: {{ nameservers }}, fallback_dns: {{ fallback_dns }}"
+
 - name: Crear lista de servidores DNS como una cadena
   set_fact:
     dns_servers: "{{ nameservers | join(' ') }}"
