@@ -72,6 +72,7 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: '0644'
+    remote_src: yes
   become: true
 
 - name: Ensure kubectl can access the cluster
