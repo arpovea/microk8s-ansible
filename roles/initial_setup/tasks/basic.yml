@@ -34,7 +34,7 @@
   become: true
 
 - name: Download the public signing key for Kubernetes and Convert the key to a GPG keyring format
-  shell: "curl -fsSL https://pkgs.k8s.io/core:/stable:/{{ kubectl_version }}/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg"
+  shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/"{{ kubectl_version }}"/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
   when: "'cluster_microk8s' in group_names"
   become: true
 
@@ -46,7 +46,7 @@
   become: true
 
 - name: Add the Kubernetes apt repository
-  shell: "echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{ kubectl_version }}/deb/ /' |  tee /etc/apt/sources.list.d/kubernetes.list"
+  shell: echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/"{{ kubectl_version }}"/deb/ /' |  tee /etc/apt/sources.list.d/kubernetes.list
   when: "'cluster_microk8s' in group_names"
   become: true
 
