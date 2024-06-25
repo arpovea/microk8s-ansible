@@ -18,11 +18,9 @@ ntp_servers:
 microk8s_version: "1.30/stable"
 
 # Networking Microk8s
-enable_kube_ovn: true
 pod_network_cidr: "10.16.0.0/16"
 service_network_cidr: "10.96.0.0/12"
 service_api_kubernetes: "10.96.0.1"
-dns_ip: "10.96.0.10" 
 
 # Extra IP and DNS for CERTS API
 enable_extra_certs: true
