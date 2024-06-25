@@ -43,9 +43,9 @@
   when: microk8s_status.rc != 0
 
 - name: Wait for MicroK8s to be ready
-  shell: "/snap/bin/microk8s microk8s status --wait-ready"
+  shell: "/snap/bin/microk8s status --wait-ready"
   retries: 10
-  delay: 20
+  delay: 10
   register: microk8s_ready
   until: microk8s_ready.rc == 0
 
