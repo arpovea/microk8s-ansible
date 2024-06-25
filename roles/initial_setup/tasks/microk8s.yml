@@ -42,11 +42,12 @@
   become: true
   when: microk8s_status.rc != 0
 
-- name: Check if MicroK8s is installed
-  command: /snap/bin/microk8s status --wait-ready
+- name: Wait for MicroK8s to be ready
+  shell: "/snap/bin/microk8s microk8s status --wait-ready"
+  retries: 10
+  delay: 10
   register: microk8s_status
-  failed_when: false
-  changed_when: false
+  until: microk8s_status.rc == 0
 
 - name: Scale Deployment to 5 replicas
   kubernetes.core.k8s:
