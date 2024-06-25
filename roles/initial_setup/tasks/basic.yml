@@ -50,9 +50,9 @@
   when: "'cluster_microk8s' in group_names"
 
 - name: Mantener kubectl en la versión actual para evitar actualizaciones automáticas
-  apt_mark:
+  ansible.builtin.dpkg_selections:
     name: kubectl
-    state: hold
+    selection: hold
   become: true
   when: "'cluster_microk8s' in group_names"
 
