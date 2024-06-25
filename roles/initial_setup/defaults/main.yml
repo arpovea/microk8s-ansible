@@ -16,7 +16,7 @@ ntp_servers:
 
 # Versión Microk8sy Kubectl
 microk8s_version: "1.30/stable"
-kubectl_version: "1.30"
+kubectl_version: "v1.30"
 
 # Networking Microk8s
 pod_network_cidr: "10.16.0.0/16"
