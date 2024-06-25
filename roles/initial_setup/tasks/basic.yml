@@ -18,7 +18,7 @@
   when: "'cluster_microk8s' in group_names"
   become: true
 
-- name: Download the public signing key for Kubernetes and Convert the key to a GPG keyring format
+- name: Delete previously key
   shell: rm -rf /etc/apt/keyrings/kubernetes-apt-keyring.gpg
   when: "'cluster_microk8s' in group_names"
   become: true
