@@ -13,6 +13,42 @@
   become: true
   when: "'control_plane_primary' in group_names"
 
+# Necesario para el módulo de k8s
+
+## Asegurar la instalación de Python y Pip
+- name: Ensure Python 3 is installed
+  apt:
+    name: python3
+    state: present
+  become: true
+
+- name: Ensure Pip for Python 3 is installed
+  apt:
+    name: python3-pip
+    state: present
+  become: true
+
+- name: Ensure setuptools is installed via pip
+  pip:
+    name: setuptools
+    state: present
+    executable: pip3
+  become: true
+
+## Instalar las bibliotecas de Python necesarias
+- name: Ensure kubernetes library is installed
+  pip:
+    name: kubernetes
+    version: '>=24.2.0'
+    executable: pip3
+  become: true
+
+- name: Ensure PyYAML library is installed
+  pip:
+    name: PyYAML
+    version: '>=3.11'
+    executable: pip3
+  become: true
 - name: Set hostname
   hostname:
     name: "{{ inventory_hostname }}"
