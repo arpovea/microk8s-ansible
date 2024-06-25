@@ -46,10 +46,7 @@
   become: true
 
 - name: Add the Kubernetes apt repository
-  copy:
-    content: 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{ kubectl_version }}/deb/ /'
-    dest: /etc/apt/sources.list.d/kubernetes.list
-    mode: '0644'
+  shell: echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' |  tee /etc/apt/sources.list.d/kubernetes.list
   when: "'cluster_microk8s' in group_names"
   become: true
 
