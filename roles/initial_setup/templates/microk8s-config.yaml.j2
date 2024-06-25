@@ -8,6 +8,7 @@ extraCNIEnv:
 extraSANs:
   - {{ load_balancer_ip }}
   - {{ load_balancer_dns }}
+  - {{ service_api_kubernetes }}
 {% endif %}
 addons:
   - name: dns
