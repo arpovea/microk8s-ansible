@@ -4,6 +4,11 @@
   when: "'cluster_microk8s' in group_names"
   become: true
 
+- name: Delete previously repolist
+  shell: rm -rf /etc/apt/sources.list.d/kubernetes.list
+  when: "'cluster_microk8s' in group_names"
+  become: true
+
 - name: Update apt cache and upgrade packages
   apt:
     update_cache: true
