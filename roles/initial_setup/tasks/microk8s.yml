@@ -56,8 +56,26 @@
     append: true
   become: true
 
-- name: Create kubectl alias
-  command: "snap alias microk8s.kubectl kubectl"
-  changed_when: false
-  register: aliaskubectlout
+- name: Ensure .kube directory exists
+  file:
+    path: /home/{{ ansible_user }}/.kube
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
   become: true
+
+- name: Copy kubeconfig to user's .kube directory
+  copy:
+    src: /snap/microk8s/current/config
+    dest: /home/{{ ansible_user }}/.kube/config
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'
+  become: true
+
+- name: Ensure kubectl can access the cluster
+  command: kubectl get nodes
+  become: true
+  environment:
+    KUBECONFIG: /home/{{ ansible_user }}/.kube/config

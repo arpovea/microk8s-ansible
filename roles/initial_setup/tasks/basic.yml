@@ -5,6 +5,57 @@
     upgrade: true
   become: true
 
+# Kubectl
+
+- name: Asegurar que se pueden agregar repositorios
+  apt:
+    name: apt-transport-https
+    state: present
+  become: true
+  when: "'cluster_microk8s' in group_names"
+
+- name: Instalar dependencias
+  apt:
+    name: ca-certificates
+    state: present
+  become: true
+  when: "'cluster_microk8s' in group_names"
+  
+- name: Añadir clave GPG de Kubernetes
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+  become: true
+  when: "'cluster_microk8s' in group_names"
+
+- name: Añadir repositorio de Kubernetes
+  apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
+    filename: kubernetes
+    state: present
+  become: true
+  when: "'cluster_microk8s' in group_names"
+
+- name: Update apt cache
+  apt:
+    update_cache: true
+  become: true
+  when: "'cluster_microk8s' in group_names"
+
+- name: Instalar kubectl versión 1.30.0
+  apt:
+    name: kubectl={{ kubectl_version }}
+    state: present
+  become: true
+  when: "'cluster_microk8s' in group_names"
+
+- name: Mantener kubectl en la versión actual para evitar actualizaciones automáticas
+  apt_mark:
+    name: kubectl
+    state: hold
+  become: true
+  when: "'cluster_microk8s' in group_names"
+
 # Necesario para kube-bench
 - name: Ensure unzip is installed
   apt:
@@ -21,12 +72,14 @@
     name: python3
     state: present
   become: true
+  when: "'cluster_microk8s' in group_names"
 
 - name: Ensure Pip for Python 3 is installed
   apt:
     name: python3-pip
     state: present
   become: true
+  when: "'cluster_microk8s' in group_names"
 
 - name: Ensure setuptools is installed via pip
   pip:
@@ -34,6 +87,7 @@
     state: present
     executable: pip3
   become: true
+  when: "'cluster_microk8s' in group_names"
 
 ## Instalar las bibliotecas de Python necesarias
 - name: Ensure kubernetes library is installed
@@ -42,6 +96,7 @@
     version: '>=24.2.0'
     executable: pip3
   become: true
+  when: "'cluster_microk8s' in group_names"
 
 - name: Ensure PyYAML library is installed
   pip:
@@ -53,6 +108,7 @@
   hostname:
     name: "{{ inventory_hostname }}"
   become: true
+  when: "'cluster_microk8s' in group_names"
 
 - name: Crear lista de servidores DNS como una cadena
   set_fact:
