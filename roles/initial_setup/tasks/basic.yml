@@ -18,25 +18,8 @@
   when: "'cluster_microk8s' in group_names"
   become: true
 
-- name: Ensure the /etc/apt/keyrings directory exists
-  file:
-    path: /etc/apt/keyrings
-    state: directory
-    mode: '0755'
-  when: "'cluster_microk8s' in group_names"
-  become: true
-
-- name: Download the public signing key for Kubernetes
-  command: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key -o /tmp/Release.key
-  args:
-    creates: /tmp/Release.key
-  when: "'cluster_microk8s' in group_names"
-  become: true
-
-- name: Convert the key to a GPG keyring format
-  command: gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg /tmp/Release.key
-  args:
-    creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+- name: Download the public signing key for Kubernetes and Convert the key to a GPG keyring format
+  shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
   when: "'cluster_microk8s' in group_names"
   become: true
 
