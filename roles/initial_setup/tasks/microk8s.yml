@@ -49,20 +49,6 @@
   register: microk8s_status
   until: microk8s_status.rc == 0
 
-- name: Scale Deployment to 5 replicas
-  kubernetes.core.k8s:
-    state: present
-    definition:
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: ovn-central
-        namespace: kube-system
-      spec:
-        replicas: 3
-  ignore_errors: true
-  when: microk8s_status.rc != 0
-
 - name: Add user to microk8s group
   user:
     name: "{{ ansible_user }}"
