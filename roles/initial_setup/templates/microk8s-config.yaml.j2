@@ -5,10 +5,8 @@ extraCNIEnv:
   IPv4_CLUSTER_CIDR: "{{ pod_network_cidr }}"
   IPv4_SERVICE_CIDR: "{{ service_network_cidr }}"
 extraSANs:
-  - {{ service_api_kubernetes }}
-  {% if enable_extra_certs %}
   - {{ load_balancer_ip }}
   - {{ load_balancer_dns }}
-  {% endif %}
+  - {{ service_api_kubernetes }}
 addons:
   - name: dns

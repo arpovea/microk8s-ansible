@@ -20,9 +20,8 @@ microk8s_version: "1.30/stable"
 # Networking Microk8s
 pod_network_cidr: "10.16.0.0/16"
 service_network_cidr: "10.96.0.0/12"
-service_api_kubernetes: "10.96.0.1"
 
 # Extra IP and DNS for CERTS API
-enable_extra_certs: true
+service_api_kubernetes: "10.96.0.1"
 load_balancer_ip: "10.10.10.16"
 load_balancer_dns: "api-microk8s.arpovea.com"
