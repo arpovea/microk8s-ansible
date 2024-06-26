@@ -1,6 +1,7 @@
 ---
 - name: Crear ServiceAccount para el Dashboard
   kubernetes.core.k8s:
+    kubeconfig: /home/{{ ansible_user }}/.kube/config
     state: present
     definition:
       apiVersion: v1
