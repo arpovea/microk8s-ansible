@@ -31,7 +31,7 @@
     KUBECONFIG: /home/{{ ansible_user }}/.kube/config
 
 - name: Obtener el nombre del secreto del ServiceAccount del Dashboard
-  shell: kubectl -n kube-system get sa dashboard-admin-sa -o jsonpath="{.secrets[0].name}"
+  shell: kubectl -n kube-system get secret | grep dashboard-token | awk '{print $1}'
   register: secret_name
 
 - name: Verificar el nombre del secreto obtenido
