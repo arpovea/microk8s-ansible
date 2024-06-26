@@ -9,6 +9,8 @@
         name: tekton-pipelines
   ignore_errors: true
   become: true
+  environment:
+    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
 
 - name: Download Tekton manifest
   get_url:

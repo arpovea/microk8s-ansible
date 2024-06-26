@@ -10,5 +10,3 @@
   when:
     - addons.rbac
     - addons.dashboard
-  vars:
-    KUBECONFIG: /home/{{ ansible_user }}/.kube/config

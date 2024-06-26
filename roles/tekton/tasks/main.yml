@@ -2,5 +2,3 @@
 - name: Deploy Tekton
   include_tasks: install.yml
   when: enable_tekton
-  vars:
-    KUBECONFIG: /home/{{ ansible_user }}/.kube/config

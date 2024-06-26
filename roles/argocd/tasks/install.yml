@@ -10,6 +10,8 @@
         name: argocd
   ignore_errors: true
   become: true
+  environment:
+    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
 
 - name: Download Argo CD manifest
   get_url:
@@ -23,3 +25,5 @@
     definition: "{{ lookup('file', '/tmp/argocd-install.yaml') | from_yaml }}"
     namespace: argocd
   become: true
+  environment:
+    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
