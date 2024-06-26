@@ -38,10 +38,10 @@
 
 - name: Verificar el nombre del secreto obtenido
   debug:
-    msg: "El nombre del secreto es: {{ secret_name }}"
+    msg: "El nombre del secreto es: {{ secret_name.stdout }}"
 
 - name: Obtener y decodificar el token del ServiceAccount del Dashboard
-  shell: kubectl -n kube-system get secret {{ secret_name}} -o jsonpath="{.data.token}" | base64 --decode
+  shell: kubectl -n kube-system get secret {{ secret_name.stdout}} -o jsonpath="{.data.token}" | base64 --decode
   register: dashboard_token_output
   environment:
     KUBECONFIG: /home/{{ ansible_user }}/.kube/config
