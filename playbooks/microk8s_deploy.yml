@@ -12,7 +12,7 @@
     - microk8s_init
 
 - name: Play Add Nodes Additional
-  hosts: control_plane_additional
+  hosts: cluster_microk8s
   become: true
   roles:
     - microk8s_join
