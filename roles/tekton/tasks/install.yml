@@ -24,3 +24,5 @@
     src: "/tmp/tekton-pipeline-release.yaml"
     namespace: tekton-pipelines
   become: true
+  environment:
+    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
