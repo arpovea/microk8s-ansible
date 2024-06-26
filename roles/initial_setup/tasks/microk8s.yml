@@ -78,6 +78,9 @@
     mode: '0644'
   become: true
 
+- name: Set temporary environment variable KUBECONFIG
+  shell: export KUBECONFIG=/home/{{ ansible_user }}/.kube/config
+  become: true
 
 - name: Ensure kubectl can access the cluster
   command: kubectl get nodes
