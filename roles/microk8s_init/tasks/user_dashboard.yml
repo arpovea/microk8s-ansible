@@ -48,4 +48,4 @@
 
 - name: Mostrar el token del Dashboard
   debug:
-    msg: "El token del ServiceAccount del Dashboard es: {{ dashboard_token_output }}"
+    msg: "El token del ServiceAccount del Dashboard es: {{ dashboard_token_output.stdout }}"
