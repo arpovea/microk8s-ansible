@@ -1,5 +1,4 @@
 ---
----
 - name: Create Argo CD namespace
   kubernetes.core.k8s:
     state: present
