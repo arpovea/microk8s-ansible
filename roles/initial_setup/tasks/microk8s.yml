@@ -65,15 +65,10 @@
     mode: '0755'
   become: true
 
-- name: Copy kubeconfig to user's .kube directory
-  copy:
-    src: /snap/microk8s/current/config
-    dest: /home/{{ ansible_user }}/.kube/config
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: '0644'
-    remote_src: yes
+- name: Generate kubeconfig for MicroK8s
+  command: /snap/bin/microk8s config > /home/{{ ansible_user }}/.kube/config
   become: true
+  become_user: "{{ ansible_user }}"
 
 - name: Ensure kubectl can access the cluster
   command: kubectl get nodes

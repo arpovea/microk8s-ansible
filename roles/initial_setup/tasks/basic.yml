@@ -1,14 +1,4 @@
 ---
-- name: Delete previously key
-  shell: rm -rf /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-  when: "'cluster_microk8s' in group_names"
-  become: true
-
-- name: Delete previously repolist
-  shell: rm -rf /etc/apt/sources.list.d/kubernetes.list
-  when: "'cluster_microk8s' in group_names"
-  become: true
-
 - name: Update apt cache and upgrade packages
   apt:
     update_cache: true
@@ -28,13 +18,8 @@
   when: "'cluster_microk8s' in group_names"
   become: true
 
-- name: Delete previously key
-  shell: rm -rf /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-  when: "'cluster_microk8s' in group_names"
-  become: true
-
 - name: Download the public signing key for Kubernetes and Convert the key to a GPG keyring format
-  shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/{{ kubectl_version }}/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/{{ kubectl_version }}/deb/Release.key | gpg --dearmor | sudo tee /etc/apt/keyrings/kubernetes-apt-keyring.gpg > /dev/null
   when: "'cluster_microk8s' in group_names"
   become: true
 
