@@ -66,8 +66,7 @@
   become: true
 
 - name: Generate kubeconfig for MicroK8s
-  command: /snap/bin/microk8s config
-  register: kubeconfig_output
+  shell: /snap/bin/microk8s config > /home/{{ ansible_user }}/.kube/config
   become: true
 
 - name: Ensure kubeconfig file permissions
