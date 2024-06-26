@@ -21,6 +21,6 @@
 - name: Apply Tekton manifest
   kubernetes.core.k8s:
     state: present
-    definition: "{{ lookup('file', '/tmp/tekton-pipeline-release.yaml') | from_yaml }}"
+    src: "/tmp/tekton-pipeline-release.yaml"
     namespace: tekton-pipelines
   become: true

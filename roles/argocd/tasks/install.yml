@@ -21,7 +21,7 @@
 - name: Apply Argo CD manifest
   kubernetes.core.k8s:
     state: present
-    definition: "{{ lookup('file', '/tmp/argocd-install.yaml') | from_yaml }}"
+    src: "/tmp/argocd-install.yaml"
     namespace: argocd
   become: true
   environment:
