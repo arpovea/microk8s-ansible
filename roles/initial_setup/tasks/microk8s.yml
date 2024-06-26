@@ -77,8 +77,11 @@
     mode: '0644'
   become: true
 
+- name: Ensure kubeconfig environment variable is set
+  ansible.builtin.set_fact:
+    kubectl_env: 
+      KUBECONFIG: /home/{{ ansible_user }}/.kube/config
+
 - name: Ensure kubectl can access the cluster
   command: kubectl get nodes
   become: true
-  environment:
-    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
