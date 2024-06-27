@@ -56,30 +56,51 @@
     append: true
   become: true
 
-- name: Ensure .kube directory exists
-  file:
-    path: /home/{{ ansible_user }}/.kube
-    state: directory
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: '0755'
+- name: Create kubectl alias
+  command: "snap alias microk8s.kubectl kubectl"
+  changed_when: false
+  register: aliaskubectlout
   become: true
 
-- name: Generate kubeconfig for MicroK8s
-  shell: /snap/bin/microk8s config > /home/{{ ansible_user }}/.kube/config
+- name: Ensure .bashrc includes kubectl alias
+  lineinfile:
+    path: /home/{{ ansible_user }}/.bashrc
+    create: yes
+    line: 'alias k="kubectl"'
   become: true
   become_user: "{{ ansible_user }}"
 
-- name: Ensure kubeconfig file permissions
-  file:
-    path: /home/{{ ansible_user }}/.kube/config
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: '0644'
+- name: Source .bashrc to apply alias
+  shell: source /home/{{ ansible_user }}/.bashrc
   become: true
+  become_user: "{{ ansible_user }}"
+  args:
+    executable: /bin/bash
 
-- name: Ensure kubectl can access the cluster
-  command: kubectl get nodes
-  become: true
-  environment:
-    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
+# - name: Ensure .kube directory exists
+#   file:
+#     path: /home/{{ ansible_user }}/.kube
+#     state: directory
+#     owner: "{{ ansible_user }}"
+#     group: "{{ ansible_user }}"
+#     mode: '0755'
+#   become: true
+
+# - name: Generate kubeconfig for MicroK8s
+#   shell: /snap/bin/microk8s config > /home/{{ ansible_user }}/.kube/config
+#   become: true
+#   become_user: "{{ ansible_user }}"
+
+# - name: Ensure kubeconfig file permissions
+#   file:
+#     path: /home/{{ ansible_user }}/.kube/config
+#     owner: "{{ ansible_user }}"
+#     group: "{{ ansible_user }}"
+#     mode: '0644'
+#   become: true
+
+# - name: Ensure kubectl can access the cluster
+#   command: kubectl get nodes
+#   become: true
+#   environment:
+#     KUBECONFIG: /home/{{ ansible_user }}/.kube/config
