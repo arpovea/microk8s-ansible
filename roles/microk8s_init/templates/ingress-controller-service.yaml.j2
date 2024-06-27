@@ -4,8 +4,7 @@ metadata:
   name: ingress-nginx-controller
   namespace: ingress
 spec:
-  type: LoadBalancer
-  loadBalancerIP: {{ ip_ingress_controller }}
+  type: NodePort
   selector:
     name: ingress-nginx
   ports:
