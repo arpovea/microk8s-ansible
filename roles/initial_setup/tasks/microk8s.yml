@@ -77,27 +77,27 @@
   args:
     executable: /bin/bash
 
-# - name: Ensure .kube directory exists
-#   file:
-#     path: /home/{{ ansible_user }}/.kube
-#     state: directory
-#     owner: "{{ ansible_user }}"
-#     group: "{{ ansible_user }}"
-#     mode: '0755'
-#   become: true
+- name: Ensure .kube directory exists
+  file:
+    path: /home/{{ ansible_user }}/.kube
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+  become: true
 
-# - name: Generate kubeconfig for MicroK8s
-#   shell: /snap/bin/microk8s config > /home/{{ ansible_user }}/.kube/config
-#   become: true
-#   become_user: "{{ ansible_user }}"
+- name: Generate kubeconfig for MicroK8s
+  shell: /snap/bin/microk8s config > /home/{{ ansible_user }}/.kube/config
+  become: true
+  become_user: "{{ ansible_user }}"
 
-# - name: Ensure kubeconfig file permissions
-#   file:
-#     path: /home/{{ ansible_user }}/.kube/config
-#     owner: "{{ ansible_user }}"
-#     group: "{{ ansible_user }}"
-#     mode: '0644'
-#   become: true
+- name: Ensure kubeconfig file permissions
+  file:
+    path: /home/{{ ansible_user }}/.kube/config
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'
+  become: true
 
 # - name: Ensure kubectl can access the cluster
 #   command: kubectl get nodes
