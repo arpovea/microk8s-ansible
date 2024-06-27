@@ -2,8 +2,6 @@
 - name: Obtener y decodificar el secreto de la password de admin de ArgoCD
   shell: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode
   register: admin_password_argocd
-  environment:
-    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
 
 - name: Create Argo CD ingress
   template:
@@ -16,8 +14,6 @@
     src: "/tmp/argocd-ingress.yaml"
     namespace: argocd
   become: true
-  environment:
-    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
 
 - name: Show Argo CD initial admin password
   debug:

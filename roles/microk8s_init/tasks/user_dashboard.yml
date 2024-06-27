@@ -25,14 +25,10 @@
         kind: ClusterRole
         name: cluster-admin
         apiGroup: rbac.authorization.k8s.io
-  environment:
-    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
 
 - name: Obtener el nombre del secreto del ServiceAccount del Dashboard
   shell: kubectl -n kube-system get secret | grep dashboard-token | awk '{print $1}'
   register: secret_name
-  environment:
-    KUBECONFIG: /home/{{ ansible_user }}/.kube/config  
 
 - name: Verificar el nombre del secreto obtenido
   debug:
@@ -41,8 +37,6 @@
 - name: Obtener y decodificar el token del ServiceAccount del Dashboard
   shell: kubectl -n kube-system get secret {{ secret_name.stdout}} -o jsonpath="{.data.token}" | base64 --decode
   register: dashboard_token_output
-  environment:
-    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
 
 - name: Mostrar el token del Dashboard
   debug:

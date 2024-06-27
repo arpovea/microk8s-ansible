@@ -5,56 +5,6 @@
     upgrade: true
   become: true
 
-# Kubectl
-
-# - name: Instalar dependencias
-#   apt:
-#     name: 
-#       - apt-transport-https
-#       - ca-certificates
-#       - curl
-#       - gnupg
-#     state: present
-#   when: "'cluster_microk8s' in group_names"
-#   become: true
-
-# - name: Download the public signing key for Kubernetes and Convert the key to a GPG keyring format
-#   shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/{{ kubectl_version }}/deb/Release.key | gpg --dearmor | sudo tee /etc/apt/keyrings/kubernetes-apt-keyring.gpg > /dev/null
-#   when: "'cluster_microk8s' in group_names"
-#   become: true
-
-# - name: Set permissions for the signing key
-#   file:
-#     path: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-#     mode: '0644'
-#   when: "'cluster_microk8s' in group_names"
-#   become: true
-
-# - name: Add the Kubernetes apt repository
-#   shell: echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{ kubectl_version }}/deb/ /' |  tee /etc/apt/sources.list.d/kubernetes.list
-#   when: "'cluster_microk8s' in group_names"
-#   become: true
-
-# - name: Update apt cache
-#   apt:
-#     update_cache: yes
-#   when: "'cluster_microk8s' in group_names"
-#   become: true
-
-# - name: Install kubectl
-#   apt:
-#     name: kubectl
-#     state: present
-#   when: "'cluster_microk8s' in group_names"
-#   become: true
-
-# - name: Mantener kubectl en la versión actual para evitar actualizaciones automáticas
-#   ansible.builtin.dpkg_selections:
-#     name: kubectl
-#     selection: hold
-#   become: true
-#   when: "'cluster_microk8s' in group_names"
-
 # Necesario para kube-bench
 - name: Ensure unzip is installed
   apt:
