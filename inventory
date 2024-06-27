@@ -1,9 +1,9 @@
 # All MV
-microk8s-master1 ansible_host=10.10.10.18 ansible_user=ubuntu ansible_password=ubuntu 
-microk8s-master2 ansible_host=10.10.10.19 ansible_user=ubuntu ansible_password=ubuntu
-microk8s-master3 ansible_host=10.10.10.20 ansible_user=ubuntu ansible_password=ubuntu
-microk8s-worker1 ansible_host=10.10.10.21 ansible_user=ubuntu ansible_password=ubuntu
-microk8s-worker2 ansible_host=10.10.10.22 ansible_user=ubuntu ansible_password=ubuntu
+microk8s-master1 ansible_host=10.10.10.23 ansible_user=ubuntu ansible_password=ubuntu 
+microk8s-master2 ansible_host=10.10.10.24 ansible_user=ubuntu ansible_password=ubuntu
+microk8s-master3 ansible_host=10.10.10.25 ansible_user=ubuntu ansible_password=ubuntu
+microk8s-worker1 ansible_host=10.10.10.26 ansible_user=ubuntu ansible_password=ubuntu
+microk8s-worker2 ansible_host=10.10.10.27 ansible_user=ubuntu ansible_password=ubuntu
 haproxy-microk8s ansible_host=10.10.10.16 ansible_user=ubuntu ansible_password=ubuntu
 
 [cluster_microk8s]
