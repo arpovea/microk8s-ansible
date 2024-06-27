@@ -48,14 +48,14 @@ backend http_back
     mode http
     balance roundrobin
     {% for node in k8s_nodes %}
-    server {{ node.name }} {{ node.ip }}:80 check
+    server {{ node.name }} {{ node.ip }}:30080 check
     {% endfor %}
 
 backend https_back
     mode tcp
     balance roundrobin
     {% for node in k8s_nodes %}
-    server {{ node.name }} {{ node.ip }}:443 check
+    server {{ node.name }} {{ node.ip }}:30443 check
     {% endfor %}
 
 backend k8s_back
