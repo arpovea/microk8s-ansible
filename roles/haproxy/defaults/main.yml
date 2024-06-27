@@ -5,21 +5,21 @@ enable_haproxy: true
 # Nodos Worker para HAPROXY
 k8s_nodes:
   - name: microk8s-master1
-    ip: 10.10.10.11
+    ip: 10.10.10.23
   - name: microk8s-master2
-    ip: 10.10.10.12
+    ip: 10.10.10.24
   - name: microk8s-master3
-    ip: 10.10.10.13
+    ip: 10.10.10.25
   - name: microk8s-worker1
-    ip: 10.10.10.14
+    ip: 10.10.10.26
   - name: microk8s-worker2
-    ip: 10.10.10.15
+    ip: 10.10.10.27
 
 #Nodos Control Plane para HAPROXY
 k8s_control_plane:
   - name: microk8s-master1
-    ip: 10.10.10.11
+    ip: 10.10.10.23
   - name: microk8s-master2
-    ip: 10.10.10.12
+    ip: 10.10.10.24
   - name: microk8s-master3
-    ip: 10.10.10.13
+    ip: 10.10.10.25
