@@ -22,7 +22,7 @@
   archive:
     path: /tmp/sonobuoy_results
     dest: /tmp/sonobuoy_results.tar.gz
-    format: gz    
+    format: gz
 
 - name: Create directory for results on local
   local_action:
