@@ -8,8 +8,6 @@
       metadata:
         name: dashboard-admin-sa
         namespace: kube-system
-  environment:
-    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
 
 - name: Crear ClusterRoleBinding para el ServiceAccount del Dashboard
   kubernetes.core.k8s:

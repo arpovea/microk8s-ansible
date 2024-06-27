@@ -104,9 +104,3 @@
     group: "{{ ansible_user }}"
     mode: '0644'
   become: true
-
-# - name: Ensure kubectl can access the cluster
-#   command: kubectl get nodes
-#   become: true
-#   environment:
-#     KUBECONFIG: /home/{{ ansible_user }}/.kube/config
