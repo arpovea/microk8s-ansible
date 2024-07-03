@@ -8,3 +8,5 @@ Este rol se encarga de la instalación y ejecución de Sonobuoy.
 |----------------------|-------------------------------------------------------|-------------------|
 | `enable_sonobuoy`    | Habilita o deshabilita la instalación de Sonobuoy.    | `true`           |
 | `sonobuoy_version`   | Especifica la versión de Sonobuoy a instalar.         | `0.56.11`         |
+
+***Nota: Esta configurado con la opcion `--mode quick`.***
