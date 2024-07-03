@@ -1,8 +1,8 @@
 ---
-# Enable HAPROXY
+# Enable HAProxy
 enable_haproxy: true
 
-# Nodos Worker para HAPROXY
+# Nodes Worker for HAProxy
 k8s_nodes:
   - name: microk8s-master1
     ip: 10.10.10.23
@@ -15,7 +15,7 @@ k8s_nodes:
   - name: microk8s-worker2
     ip: 10.10.10.27
 
-#Nodos Control Plane para HAPROXY
+# Nodes Control Plane for HAProxy
 k8s_control_plane:
   - name: microk8s-master1
     ip: 10.10.10.23
