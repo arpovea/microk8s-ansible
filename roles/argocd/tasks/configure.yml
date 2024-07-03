@@ -1,5 +1,5 @@
 ---
-- name: Obtener y decodificar el secreto de la password de admin de ArgoCD
+- name: Obtain and decode the secret admin password of ArgoCD
   shell: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode
   register: admin_password_argocd
 

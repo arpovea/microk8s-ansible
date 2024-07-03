@@ -1,6 +1,6 @@
 ---
-# Enable argocd
+# Enable ArgoCD
 enable_argocd: true
 
-# Variable del host de argocd
+# Host ArgoCD
 argocd_host: "argocd.arpovea.com"
