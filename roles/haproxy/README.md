@@ -6,11 +6,11 @@ Este rol se encarga de la instalación y configuración de HAProxy.
 
 | Variable          | Descripción                                                                 | Valor por defecto  |
 |-------------------|-----------------------------------------------------------------------------|--------------------|
-| `enable_haproxy`  | Habilita o deshabilita la instalación de HAProxy.                            | `true`             |
-| `k8s_nodes`       | Lista de nodos Worker para HAProxy con sus nombres e IPs correspondientes.   | Ver detalle abajo  |
-| `k8s_control_plane` | Lista de nodos de Control Plane para HAProxy con sus nombres e IPs correspondientes. | Ver detalle abajo  |
+| `haproxy_enable`  | Habilita o deshabilita la instalación de HAProxy.                            | `true`             |
+| `haproxy_k8s_nodes`       | Lista de nodos Worker para HAProxy con sus nombres e IPs correspondientes.   | Ver detalle abajo  |
+| `haproxy_k8s_control_plane` | Lista de nodos de Control Plane para HAProxy con sus nombres e IPs correspondientes. | Ver detalle abajo  |
 
-### Detalle de `k8s_nodes`
+### Detalle de `haproxy_k8s_nodes`
 
 | Nombre           | IP             |
 |------------------|----------------|
@@ -22,7 +22,7 @@ Este rol se encarga de la instalación y configuración de HAProxy.
 
 ***Nota:*** Estos valores son usados para rellenar el template `haproxy.cfg.j2`
 
-### Detalle de `k8s_control_plane`
+### Detalle de `haproxy_k8s_control_plane`
 
 | Nombre           | IP             |
 |------------------|----------------|
