@@ -1,8 +1,8 @@
 ---
 - name: Install Sonobuoy
-  include_tasks: install.yml
-  when: enable_sonobuoy
+  ansible.builtin.include_tasks: install.yml
+  when: sonobuoy_enable
 
 - name: Run Sonobuoy
-  include_tasks: run.yml
-  when: enable_sonobuoy
+  ansible.builtin.include_tasks: run.yml
+  when: sonobuoy_enable

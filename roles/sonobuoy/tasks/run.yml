@@ -1,41 +1,49 @@
 ---
 - name: Run Sonobuoy
-  command: "sonobuoy run --wait --mode quick"
+  ansible.builtin.command: "sonobuoy run --wait --mode quick"
   register: sonobuoy_run_output
+  changed_when: false
 
 - name: Get Sonobuoy results
-  command: "sonobuoy retrieve"
+  ansible.builtin.command: "sonobuoy retrieve"
   register: sonobuoy_results_output
+  changed_when: false
 
 - name: Create directory for results
-  file:
+  ansible.builtin.file:
     path: "/tmp/sonobuoy_results"
     state: directory
+    mode: '0755'
 
 - name: Unarchive Sonobuoy results
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ sonobuoy_results_output.stdout }}"
     dest: "/tmp/sonobuoy_results"
     remote_src: true
+    mode: '0644'
 
 - name: Compress Sonobuoy results
-  archive:
+  community.general.archive:
     path: /tmp/sonobuoy_results
     dest: /tmp/sonobuoy_results.tar.gz
     format: gz
+    mode: '0644'
 
 - name: Create directory for results on local
-  local_action:
-    module: file
+  ansible.builtin.file:
     path: "./sonobuoy_results"
     state: directory
+    mode: '0755'
+  delegate_to: localhost
 
 - name: Fetch Sonobuoy results to local
-  fetch:
+  ansible.builtin.fetch:
     src: /tmp/sonobuoy_results.tar.gz
     dest: "./sonobuoy_results/sonobuoy_results.tar.gz"
     flat: true
 
 - name: Delete Sonobuoy from the cluster
-  command: "sonobuoy delete --wait"
+  ansible.builtin.command: "sonobuoy delete --wait"
   ignore_errors: true
+  register: ignore_errors_register
+  changed_when: false
