@@ -13,3 +13,5 @@ addons:
   ingress: true
   metrics_server: true
   dashboard: true
+  storage: false
+  registry: false
