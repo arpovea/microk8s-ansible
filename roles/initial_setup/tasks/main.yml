@@ -1,7 +1,7 @@
 ---
-- name: Instalación y configuración de paquetes esenciales.
+- name: Installation and configuration of essential packages
   import_tasks: basic.yml
 
-- name: Instalación y configuración necesaria para microk8s 
+- name: Installation and configuration required for microk8s
   include_tasks: microk8s.yml
   when: "'cluster_microk8s' in group_names"

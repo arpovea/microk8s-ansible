@@ -14,9 +14,9 @@ resolved_conf_path: "/etc/systemd/resolved.conf"
 ntp_servers:
   - "ntp.ubuntu.com"
 
-# Versión Microk8sy Kubectl
+# Version Microk8s
 microk8s_version: "1.30/stable"
-kubectl_version: "v1.30"
+
 
 # Networking Microk8s
 pod_network_cidr: "10.16.0.0/16"

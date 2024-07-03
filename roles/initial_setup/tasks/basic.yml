@@ -5,7 +5,7 @@
     upgrade: true
   become: true
 
-# Necesario para kube-bench
+# Required for kube-bench
 - name: Ensure unzip is installed
   apt:
     name: unzip
@@ -13,9 +13,9 @@
   become: true
   when: "'control_plane_primary' in group_names"
 
-# Necesario para el módulo de k8s
+# Required for k8s module
 
-## Asegurar la instalación de Python y Pip
+## Installing Python and Pip
 - name: Ensure Python 3 is installed
   apt:
     name: python3
@@ -38,7 +38,7 @@
   become: true
   when: "'cluster_microk8s' in group_names"
 
-## Instalar las bibliotecas de Python necesarias
+## Install the necessary Python libraries
 - name: Ensure kubernetes library is installed
   pip:
     name: kubernetes
@@ -59,12 +59,12 @@
   become: true
   when: "'cluster_microk8s' in group_names"
 
-- name: Crear lista de servidores DNS como una cadena
+- name: Create DNS server list as a string
   set_fact:
     dns_servers: "{{ nameservers | join(' ') }}"
     fallback_dns_servers: "{{ fallback_dns | join(' ') }}"
 
-- name: Configurar servidores DNS en /etc/systemd/resolved.conf
+- name: Configuring DNS servers in /etc/systemd/resolved.conf
   blockinfile:
     path: "{{ resolved_conf_path }}"
     block: |
@@ -74,7 +74,7 @@
       DNSStubListener=yes
   become: true
 
-- name: Asegurarse de que systemd-resolved esté habilitado y reiniciado
+- name: Ensure that systemd-resolved is enabled and restarted
   systemd:
     name: systemd-resolved
     enabled: true
