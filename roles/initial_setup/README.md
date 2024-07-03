@@ -8,7 +8,7 @@ Este rol se encarga de realizar la instalación de la paqueteria y configuracion
 
 | Variable             | Descripción                                                                | Valor por defecto       |
 |----------------------|----------------------------------------------------------------------------|-------------------------|
-| `nameservers`        | Lista de servidores DNS principales.                                        | `8.8.8.8`, `8.8.4.4`    |
+| `nameservers`        | Lista de servidores DNS principales.                                        | `10.10.10.3`, `8.8.8.8`    |
 | `fallback_dns`       | Lista de servidores DNS de respaldo.                                        | `1.1.1.1`, `1.0.0.1`    |
 | `resolved_conf_path` | Ruta al archivo de configuración de systemd-resolved.                       | `/etc/systemd/resolved.conf` |
 
@@ -28,15 +28,13 @@ Este rol se encarga de realizar la instalación de la paqueteria y configuracion
 
 | Variable              | Descripción                                                                | Valor por defecto       |
 |-----------------------|----------------------------------------------------------------------------|-------------------------|
-| `enable_kube_ovn`     | Habilita o deshabilita la configuración de Kube-OVN.                       | `true`                  |
 | `pod_network_cidr`    | Rango de IP para la red de pods.                                           | `10.16.0.0/16`          |
 | `service_network_cidr`| Rango de IP para la red de servicios.                                      | `10.96.0.0/12`          |
-| `dns_ip`              | Dirección IP del servidor DNS dentro del clúster.                          | `10.96.0.10`            |
 
 ### Configuración de IP y DNS adicionales para el API server
 
 | Variable              | Descripción                                                                | Valor por defecto              |
 |-----------------------|----------------------------------------------------------------------------|--------------------------------|
-| `enable_extra_certs`    | Habilitar el uso de IP y DNS para incluirlos en el certificado del API server. | `true`                |
-| `load_balancer_ip`    | IP del balanceador de carga para incluir en el certificado del API server. | `192.168.1.100`                |
+| `service_api_kubernetes`    | Especifica la IP del servicio de la API de Kubernetes.               | `10.96.0.1`                         |
+| `load_balancer_ip`    | IP del balanceador de carga para incluir en el certificado del API server. | `10.10.10.16`                |
 | `load_balancer_dns`   | DNS del balanceador de carga para incluir en el certificado del API server.| `api-microk8s.arpovea.com`     |
