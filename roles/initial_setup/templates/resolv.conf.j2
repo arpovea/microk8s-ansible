@@ -1,4 +1,4 @@
 # /etc/resolv.conf
-{% for nameserver in nameservers %}
+{% for nameserver in initial_setup_nameservers %}
 nameserver {{ nameserver }}
 {% endfor %}

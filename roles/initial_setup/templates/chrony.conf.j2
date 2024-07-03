@@ -1,4 +1,4 @@
 # /etc/chrony/chrony.conf
-{% for server in ntp_servers %}
+{% for server in initial_setup_ntp_servers %}
 pool {{ server }} iburst
 {% endfor %}

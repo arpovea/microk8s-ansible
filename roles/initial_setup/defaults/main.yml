@@ -1,28 +1,28 @@
 ---
 # Vars DNS
-nameservers:
+initial_setup_nameservers:
   - 10.10.10.3
   - 8.8.8.8
 
-fallback_dns:
+initial_setup_fallback_dns:
   - 1.1.1.1
   - 1.0.0.1
 
-resolved_conf_path: "/etc/systemd/resolved.conf"
+initial_setup_resolved_conf_path: "/etc/systemd/resolved.conf"
 
 # Vars NTP
-ntp_servers:
+initial_setup_ntp_servers:
   - "ntp.ubuntu.com"
 
 # Version Microk8s
-microk8s_version: "1.30/stable"
+initial_setup_microk8s_version: "1.30/stable"
 
 
 # Networking Microk8s
-pod_network_cidr: "10.16.0.0/16"
-service_network_cidr: "10.96.0.0/12"
+initial_setup_pod_network_cidr: "10.16.0.0/16"
+initial_setup_service_network_cidr: "10.96.0.0/12"
 
 # Extra IP and DNS for CERTS API
-service_api_kubernetes: "10.96.0.1"
-load_balancer_ip: "10.10.10.16"
-load_balancer_dns: "api-microk8s.arpovea.com"
+initial_setup_service_api_kubernetes: "10.96.0.1"
+initial_setup_load_balancer_ip: "10.10.10.16"
+initial_setup_load_balancer_dns: "api-microk8s.arpovea.com"

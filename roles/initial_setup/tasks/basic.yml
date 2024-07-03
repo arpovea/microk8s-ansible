@@ -1,13 +1,13 @@
 ---
 - name: Update apt cache and upgrade packages
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     upgrade: true
   become: true
 
 # Required for kube-bench
 - name: Ensure unzip is installed
-  apt:
+  ansible.builtin.apt:
     name: unzip
     state: present
   become: true
@@ -17,21 +17,21 @@
 
 ## Installing Python and Pip
 - name: Ensure Python 3 is installed
-  apt:
+  ansible.builtin.apt:
     name: python3
     state: present
   become: true
   when: "'cluster_microk8s' in group_names"
 
 - name: Ensure Pip for Python 3 is installed
-  apt:
+  ansible.builtin.apt:
     name: python3-pip
     state: present
   become: true
   when: "'cluster_microk8s' in group_names"
 
 - name: Ensure setuptools is installed via pip
-  pip:
+  ansible.builtin.pip:
     name: setuptools
     state: present
     executable: pip3
@@ -40,7 +40,7 @@
 
 ## Install the necessary Python libraries
 - name: Ensure kubernetes library is installed
-  pip:
+  ansible.builtin.pip:
     name: kubernetes
     version: '>=24.2.0'
     executable: pip3
@@ -48,25 +48,26 @@
   when: "'cluster_microk8s' in group_names"
 
 - name: Ensure PyYAML library is installed
-  pip:
+  ansible.builtin.pip:
     name: PyYAML
     version: '>=3.11'
     executable: pip3
   become: true
+
 - name: Set hostname
-  hostname:
+  ansible.builtin.hostname:
     name: "{{ inventory_hostname }}"
   become: true
   when: "'cluster_microk8s' in group_names"
 
 - name: Create DNS server list as a string
-  set_fact:
-    dns_servers: "{{ nameservers | join(' ') }}"
-    fallback_dns_servers: "{{ fallback_dns | join(' ') }}"
+  ansible.builtin.set_fact:
+    dns_servers: "{{ initial_setup_nameservers | join(' ') }}"
+    fallback_dns_servers: "{{ initial_setup_fallback_dns | join(' ') }}"
 
 - name: Configuring DNS servers in /etc/systemd/resolved.conf
-  blockinfile:
-    path: "{{ resolved_conf_path }}"
+  ansible.builtin.blockinfile:
+    path: "{{ initial_setup_resolved_conf_path }}"
     block: |
       [Resolve]
       DNS={{ dns_servers }}
@@ -75,20 +76,20 @@
   become: true
 
 - name: Ensure that systemd-resolved is enabled and restarted
-  systemd:
+  ansible.builtin.systemd:
     name: systemd-resolved
     enabled: true
     state: restarted
   become: true
 
 - name: Install chrony for time synchronization
-  apt:
+  ansible.builtin.apt:
     name: chrony
     state: present
   become: true
 
 - name: Configure NTP servers
-  template:
+  ansible.builtin.template:
     src: chrony.conf.j2
     dest: /etc/chrony/chrony.conf
     owner: root
@@ -97,7 +98,7 @@
   become: true
 
 - name: Ensure chrony is running
-  systemd:
+  ansible.builtin.systemd:
     name: chrony
     enabled: true
     state: restarted

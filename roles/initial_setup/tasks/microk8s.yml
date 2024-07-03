@@ -1,20 +1,20 @@
 ---
 - name: Check if MicroK8s is installed
-  command: /snap/bin/microk8s status --wait-ready
+  ansible.builtin.command: /snap/bin/microk8s status --wait-ready
   register: microk8s_status
   failed_when: false
   changed_when: false
 
 - name: Create the configuration directory
-  file:
+  ansible.builtin.file:
     path: /var/snap/microk8s/common
     state: directory
     mode: '0755'
   become: true
   when: microk8s_status.rc != 0
-  
+
 - name: Copy the launch configuration file
-  template:
+  ansible.builtin.template:
     src: microk8s-config.yaml.j2
     dest: /var/snap/microk8s/common/.microk8s.yaml
     mode: '0644'
@@ -22,63 +22,69 @@
   when: microk8s_status.rc != 0
 
 - name: Ensure snapd is running
-  systemd:
+  ansible.builtin.systemd:
     name: snapd
     state: started
   become: true
   when: microk8s_status.rc != 0
 
 - name: Install MicroK8s
-  snap:
+  community.general.snap:
     name: microk8s
     classic: true
     state: present
-    channel: "{{ microk8s_version }}"
+    channel: "{{ initial_setup_microk8s_version }}"
   become: true
   when: microk8s_status.rc != 0
 
 - name: Hold Snap packages to prevent automatic updates
-  command: snap refresh --hold microk8s
+  ansible.builtin.command: snap refresh --hold microk8s
+  register: hold_snap_packages
+  changed_when: hold_snap_packages.rc != 0
   become: true
   when: microk8s_status.rc != 0
 
 - name: Wait for MicroK8s to be ready
-  shell: "/snap/bin/microk8s status --wait-ready"
+  ansible.builtin.command: "/snap/bin/microk8s status --wait-ready"
   retries: 10
   delay: 10
   register: microk8s_ready
+  changed_when: microk8s_ready.rc != 0
   until: microk8s_ready.rc == 0
 
 - name: Add user to microk8s group
-  user:
+  ansible.builtin.user:
     name: "{{ ansible_user }}"
     groups: microk8s
     append: true
   become: true
 
 - name: Create kubectl alias
-  command: "snap alias microk8s.kubectl kubectl"
+  ansible.builtin.command: "snap alias microk8s.kubectl kubectl"
   changed_when: false
   register: aliaskubectlout
   become: true
 
 - name: Ensure .bashrc includes kubectl alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /home/{{ ansible_user }}/.bashrc
-    create: yes
+    create: true
     line: 'alias k="kubectl"'
+    mode: '0644'
   become: true
   become_user: "{{ ansible_user }}"
 
 - name: Source .bashrc to apply alias
-  shell: source /home/{{ ansible_user }}/.bashrc
+  ansible.builtin.command: source /home/{{ ansible_user }}/.bashrc
+  register: source_bashrc
+  changed_when: source_bashrc != 0
   become: true
   become_user: "{{ ansible_user }}"
   args:
     executable: /bin/bash
 
 - name: Create .kube directory if it does not exist
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.kube"
     state: directory
     owner: "{{ ansible_user }}"
@@ -86,11 +92,13 @@
   become: true
 
 - name: Generate kubeconfig for MicroK8s
-  shell: /snap/bin/microk8s config > {{ ansible_env.HOME }}/.kube/config
+  ansible.builtin.shell: /snap/bin/microk8s config > {{ ansible_env.HOME }}/.kube/config
+  register: generate_kubeconfig
+  changed_when: generate_kubeconfig.rc != 0
   become: true
 
 - name: Allow the user to access kubeconfig
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.kube"
     state: directory
     owner: "{{ ansible_user }}"
@@ -98,7 +106,7 @@
   become: true
 
 - name: Ensure kubeconfig file permissions
-  file:
+  ansible.builtin.file:
     path: /home/{{ ansible_user }}/.kube/config
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"

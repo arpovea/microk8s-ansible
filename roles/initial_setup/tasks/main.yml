@@ -1,7 +1,7 @@
 ---
 - name: Installation and configuration of essential packages
-  import_tasks: basic.yml
+  ansible.builtin.include_tasks: basic.yml
 
 - name: Installation and configuration required for microk8s
-  include_tasks: microk8s.yml
+  ansible.builtin.include_tasks: microk8s.yml
   when: "'cluster_microk8s' in group_names"
