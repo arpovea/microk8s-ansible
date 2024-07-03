@@ -20,5 +20,3 @@ Este rol habilita complementos en el cluster (los que se comparten de forma hori
 | `addons.ingress`        | Habilita o deshabilita el complemento Ingress para gestionar el tráfico HTTP/HTTPS hacia los servicios. | `true`                      |
 | `addons.metrics_server` | Habilita o deshabilita el complemento Metrics Server para recopilar métricas del clúster.      | `true`                      |
 | `addons.dashboard`      | Habilita o deshabilita el complemento Kubernetes Dashboard para proporcionar una interfaz gráfica de usuario. | `true`                      |
-| `addons.storage`        | Habilita o deshabilita el complemento de almacenamiento.                                       | `false`                     |
-| `addons.registry`       | Habilita o deshabilita el complemento de registro de contenedores.                             | `false`                     |
