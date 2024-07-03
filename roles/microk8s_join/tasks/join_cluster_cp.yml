@@ -1,5 +1,10 @@
 ---
 - name: Join the MicroK8s cluster as control plane
-  shell: "/snap/bin/microk8s join {{ hostvars[groups['control_plane'][0]].ansible_host }}:25000/{{ hostvars[groups['control_plane'][0]].microk8s_join_token }}"
+  ansible.builtin.command: >
+    /snap/bin/microk8s join
+    {{ hostvars[groups['control_plane'][0]].ansible_host }}:25000/
+    {{ hostvars[groups['control_plane'][0]].microk8s_join_token }}
+  register: join_extra_cp
+  changed_when: join_extra_cp.rc != 0
   when: "'node/' + inventory_hostname not in hostvars[groups['control_plane'][0]].existing_nodes"
   become: true
