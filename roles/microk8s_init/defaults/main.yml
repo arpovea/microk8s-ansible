@@ -1,11 +1,11 @@
 ---
-# Definición de rango IP para MetalLB
+#  Definition of IP range for MetalLB
 metallb_ip_range: 10.10.10.150-10.10.10.160
 
-# Definicion de IP para ingress-controller (tipo load balancer)
+# IP definition for ingress-controller (load balancer type)
 ip_ingress_controller: 10.10.10.151
 
-# Instalar Addons generales en el primer control plane.
+# Install general addons on the first control plane
 
 addons:
   rbac: true

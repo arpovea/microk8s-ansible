@@ -41,7 +41,6 @@
 - name: Enable MicroK8s Dashboard addon
   command: /snap/bin/microk8s enable dashboard
   when: addons.dashboard
-## Mirar lo del rbac
 
 # Addon Storage
 - name: Enable MicroK8s Storage addon

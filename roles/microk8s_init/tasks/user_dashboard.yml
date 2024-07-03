@@ -1,5 +1,5 @@
 ---
-- name: Crear ServiceAccount para el Dashboard
+- name: Create ServiceAccount for the Dashboard
   kubernetes.core.k8s:
     state: present
     definition:
@@ -26,18 +26,18 @@
         name: cluster-admin
         apiGroup: rbac.authorization.k8s.io
 
-- name: Obtener el nombre del secreto del ServiceAccount del Dashboard
+- name: Get the name of the secret ServiceAccount from the Dashboard
   shell: kubectl -n kube-system get secret | grep dashboard-token | awk '{print $1}'
   register: secret_name
 
-- name: Verificar el nombre del secreto obtenido
+- name: Check the name of the secret obtained
   debug:
     msg: "El nombre del secreto es: {{ secret_name.stdout }}"
 
-- name: Obtener y decodificar el token del ServiceAccount del Dashboard
+- name: Obtain and decode the ServiceAccount token from Dashboard
   shell: kubectl -n kube-system get secret {{ secret_name.stdout}} -o jsonpath="{.data.token}" | base64 --decode
   register: dashboard_token_output
 
-- name: Mostrar el token del Dashboard
+- name: Show Dashboard token
   debug:
     msg: "El token del ServiceAccount del Dashboard es: {{ dashboard_token_output.stdout }}"
