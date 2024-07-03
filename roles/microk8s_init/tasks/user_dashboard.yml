@@ -27,7 +27,9 @@
         apiGroup: rbac.authorization.k8s.io
 
 - name: Get the name of the secret ServiceAccount from the Dashboard
-  ansible.builtin.shell: set -o pipefail && kubectl -n kube-system get secret | grep dashboard-token | awk '{print $1}'
+  ansible.builtin.shell:
+    cmd: set -o pipefail && kubectl -n kube-system get secret | grep dashboard-token | awk '{print $1}'
+    executable: /bin/bash
   changed_when: false
   register: secret_name
 
@@ -36,7 +38,9 @@
     msg: "El nombre del secreto es: {{ secret_name.stdout }}"
 
 - name: Obtain and decode the ServiceAccount token from Dashboard
-  ansible.builtin.shell: set -o pipefail && kubectl -n kube-system get secret {{ secret_name.stdout }} -o jsonpath="{.data.token}" | base64 --decode
+  ansible.builtin.shell:
+    cmd: set -o pipefail && kubectl -n kube-system get secret {{ secret_name.stdout }} -o jsonpath="{.data.token}" | base64 --decode
+    executable: /bin/bash
   changed_when: false
   register: dashboard_token_output
 
