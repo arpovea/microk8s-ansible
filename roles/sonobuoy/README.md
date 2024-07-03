@@ -6,5 +6,5 @@ Este rol se encarga de la instalación y ejecución de Sonobuoy.
 
 | Variable             | Descripción                                           | Valor por defecto |
 |----------------------|-------------------------------------------------------|-------------------|
-| `enable_sonobuoy`    | Habilita o deshabilita la instalación de Sonobuoy.    | `false`           |
+| `enable_sonobuoy`    | Habilita o deshabilita la instalación de Sonobuoy.    | `true`           |
 | `sonobuoy_version`   | Especifica la versión de Sonobuoy a instalar.         | `0.56.11`         |
