@@ -75,7 +75,7 @@
   become_user: "{{ ansible_user }}"
 
 - name: Source .bashrc to apply alias
-  ansible.builtin.command: source /home/{{ ansible_user }}/.bashrc
+  ansible.builtin.shell: source /home/{{ ansible_user }}/.bashrc
   register: source_bashrc
   changed_when: source_bashrc != 0
   become: true

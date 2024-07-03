@@ -1,15 +1,21 @@
 ---
 - name: Run Kube-bench
-  command: "kube-bench run --config-dir /usr/local/kube-bench/cfg --config /usr/local/kube-bench/cfg/config.yaml --json --outputfile /tmp/kube_bench_results/kube-bench-results.json"
+  ansible.builtin.command: >
+    kube-bench run --config-dir /usr/local/kube-bench/cfg
+    --config /usr/local/kube-bench/cfg/config.yaml
+    --json --outputfile /tmp/kube_bench_results/kube-bench-results.json
+  register: run_kube_bench
+  changed_when: run_kube_bench != 0
 
 - name: Create directory for results on local
-  local_action:
-    module: file
+  ansible.builtin.file:
     path: "./kube_bench_results"
     state: directory
+    mode: '0755'
+  delegate_to: localhost
 
 - name: Fetch Kube-bench results to local machine
-  fetch:
+  ansible.builtin.fetch:
     src: "/tmp/kube_bench_results/kube-bench-results.json"
     dest: "./kube_bench_results/kube-bench-results.json"
     flat: true

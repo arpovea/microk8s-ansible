@@ -1,8 +1,8 @@
 ---
 - name: Install Kube Bench
-  include_tasks: install.yml
-  when: enable_kube_bench
+  ansible.builtin.include_tasks: install.yml
+  when: kube_bench_enable
 
 - name: Run Kube Bench
-  include_tasks: run.yml
-  when: enable_kube_bench
+  ansible.builtin.include_tasks: run.yml
+  when: kube_bench_enable
