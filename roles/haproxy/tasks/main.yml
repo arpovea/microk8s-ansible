@@ -1,8 +1,8 @@
 ---
 - name: Install HAProxy
-  include_tasks: install.yml
-  when: enable_haproxy
+  ansible.builtin.include_tasks: install.yml
+  when: haproxy_enable
 
 - name: Configure HAProxy
-  include_tasks: configure.yml
-  when: enable_haproxy
+  ansible.builtin.include_tasks: configure.yml
+  when: haproxy_enable

@@ -47,20 +47,20 @@ frontend k8s_front
 backend http_back
     mode http
     balance roundrobin
-    {% for node in k8s_nodes %}
+    {% for node in haproxy_k8s_nodes %}
     server {{ node.name }} {{ node.ip }}:30080 check
     {% endfor %}
 
 backend https_back
     mode tcp
     balance roundrobin
-    {% for node in k8s_nodes %}
+    {% for node in haproxy_k8s_nodes %}
     server {{ node.name }} {{ node.ip }}:30443 check
     {% endfor %}
 
 backend k8s_back
     mode tcp
     balance roundrobin
-    {% for node in k8s_control_plane %}
+    {% for node in haproxy_k8s_control_plane %}
     server {{ node.name }} {{ node.ip }}:16443 check
     {% endfor %}
