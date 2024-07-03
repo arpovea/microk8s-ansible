@@ -1,12 +1,12 @@
 ---
 - name: Enable MicroK8s Addons
-  include_tasks: enable_addons.yml
+  ansible.builtin.include_tasks: enable_addons.yml
 
 - name: Generate Join token
-  include_tasks: generate_token.yml
+  ansible.builtin.include_tasks: generate_token.yml
 
 - name: Generate User Dashboard
-  include_tasks: user_dashboard.yml
+  ansible.builtin.include_tasks: user_dashboard.yml
   when:
-    - addons.rbac
-    - addons.dashboard
+    - microk8s_init_addons.rbac
+    - microk8s_init_addons.dashboard

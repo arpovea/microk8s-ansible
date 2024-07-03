@@ -1,53 +1,71 @@
 ---
 # Addon RBAC
 - name: Enable MicroK8s RBAC addon
-  command: /snap/bin/microk8s enable rbac
-  when: addons.rbac
+  ansible.builtin.command: /snap/bin/microk8s enable rbac
+  register: addons_rbac
+  changed_when: addons_rbac.rc != 0
+  when: microk8s_init_addons.rbac
 
 # Addon MetalLB
 - name: Enable MicroK8s MetalLB addon
-  shell: echo {{ metallb_ip_range }} | /snap/bin/microk8s enable metallb
-  when: addons.metallb
+  ansible.builtin.shell: set -o pipefail && echo {{ metallb_ip_range }} | /snap/bin/microk8s enable metallb
+  register: addons_metallb
+  changed_when: addons_metallb.rc != 0
+  when: microk8s_init_addons.metallb
 
 - name: Wait for MetalLB namespace to be created
-  command: /snap/bin/microk8s kubectl get ns metallb-system
+  ansible.builtin.command: /snap/bin/microk8s kubectl get ns metallb-system
   register: metallb_ns_check
+  changed_when: metallb_ns_check.rc != 0
   until: metallb_ns_check.rc == 0
   retries: 5
   delay: 10
-  when: addons.metallb
-  
+  when: microk8s_init_addons.metallb
+
 # Addon Ingress
 - name: Enable MicroK8s Ingress addon
-  command: /snap/bin/microk8s enable ingress
-  when: addons.ingress
+  ansible.builtin.command: /snap/bin/microk8s enable ingress
+  register: addons_ingress
+  changed_when: addons_ingress.rc != 0
+  when: microk8s_init_addons.ingress
 
 - name: Create Ingress Controller Service
-  template:
+  ansible.builtin.template:
     src: ingress-controller-service.yaml.j2
     dest: /tmp/ingress-controller-service.yaml
-  when: addons.ingress
+    mode: '0644'
+  when: microk8s_init_addons.ingress
 
 - name: Apply Ingress Controller Service
-  command: /snap/bin/microk8s kubectl apply -f /tmp/ingress-controller-service.yaml
-  when: addons.ingress
+  ansible.builtin.command: /snap/bin/microk8s kubectl apply -f /tmp/ingress-controller-service.yaml
+  register: addons_ingress_service
+  changed_when: addons_ingress_service.rc != 0
+  when: microk8s_init_addons.ingress
 
 # Addon Metrics Server
 - name: Enable MicroK8s Metrics Server addon
-  command: /snap/bin/microk8s enable metrics-server
-  when: addons["metrics_server"]
+  ansible.builtin.command: /snap/bin/microk8s enable metrics-server
+  register: addons_metrics
+  changed_when: addons_metrics.rc != 0
+  when: microk8s_init_addons["metrics_server"]
 
 # Addon Dashboard
 - name: Enable MicroK8s Dashboard addon
-  command: /snap/bin/microk8s enable dashboard
-  when: addons.dashboard
+  ansible.builtin.command: /snap/bin/microk8s enable dashboard
+  register: addons_dashboard
+  changed_when: addons_dashboard.rc != 0
+  when: microk8s_init_addons.dashboard
 
 # Addon Storage
 - name: Enable MicroK8s Storage addon
-  command: /snap/bin/microk8s enable storage
-  when: addons.storage
+  ansible.builtin.command: /snap/bin/microk8s enable storage
+  register: addons_storage
+  changed_when: addons_storage.rc != 0
+  when: microk8s_init_addons.storage
 
 # Addon Registry
 - name: Enable MicroK8s Registry addon
-  command: /snap/bin/microk8s enable registry
-  when: addons.registry
+  ansible.builtin.command: /snap/bin/microk8s enable registry
+  register: addons_registry
+  changed_when: addons_registry.rc != 0
+  when: microk8s_init_addons.registry

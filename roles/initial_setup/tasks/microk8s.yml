@@ -49,7 +49,7 @@
   retries: 10
   delay: 10
   register: microk8s_ready
-  changed_when: microk8s_ready.rc != 0
+  changed_when: false
   until: microk8s_ready.rc == 0
 
 - name: Add user to microk8s group

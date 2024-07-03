@@ -1,25 +1,28 @@
 ---
 - name: Wait for MicroK8s to be ready
-  shell: "/snap/bin/microk8s status --wait-ready"
+  ansible.builtin.command: /snap/bin/microk8s status --wait-ready
   retries: 10
   delay: 10
   register: microk8s_status
+  changed_when: false
   until: microk8s_status.rc == 0
 
 - name: Generate MicroK8s join token
-  command: /snap/bin/microk8s add-node --token-ttl 3600
+  ansible.builtin.command: /snap/bin/microk8s add-node --token-ttl 3600
   register: join_token_output
+  changed_when: join_token_output.rc != 0
   become: true
 
 - name: Extract join token
-  set_fact:
+  ansible.builtin.set_fact:
     microk8s_join_token: "{{ join_token_output.stdout | regex_search('microk8s join .*') | regex_replace('.*25000/', '') | regex_replace(' --.*', '') }}"
 
 - name: Get list of current nodes in the cluster
-  command: /snap/bin/microk8s kubectl get nodes -o name
+  ansible.builtin.command: /snap/bin/microk8s kubectl get nodes -o name
+  changed_when: false
   register: current_nodes
   become: true
 
 - name: Set fact for current nodes
-  set_fact:
+  ansible.builtin.set_fact:
     existing_nodes: "{{ current_nodes.stdout_lines }}"
