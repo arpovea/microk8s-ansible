@@ -1,8 +1,8 @@
 ---
 - name: Deploy ArgoCD
-  include_tasks: install.yml
-  when: enable_argocd
+  ansible.builtin.include_tasks: install.yml
+  when: argocd_enable
 
 - name: Configure and Expose ArgoCD
-  include_tasks: configure.yml
-  when: enable_argocd
+  ansible.builtin.include_tasks: configure.yml
+  when: argocd_enable

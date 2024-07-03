@@ -1,6 +1,6 @@
 ---
 # Enable ArgoCD
-enable_argocd: true
+argocd_enable: true
 
 # Host ArgoCD
 argocd_host: "argocd.arpovea.com"

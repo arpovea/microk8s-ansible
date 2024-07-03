@@ -8,12 +8,14 @@
       metadata:
         name: argocd
   ignore_errors: true
+  register: ignore_errors_register
   become: true
 
 - name: Download Argo CD manifest
-  get_url:
+  ansible.builtin.get_url:
     url: "https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
     dest: "/tmp/argocd-install.yaml"
+    mode: '0644'
   become: true
 
 - name: Apply Argo CD manifest
