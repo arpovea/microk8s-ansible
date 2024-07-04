@@ -1,6 +1,13 @@
 # Despliegue de Microk8s con Ansible
 
-Con este playbook podrás porvisionar un cluster de microk8s ademas de un balanceo con HAProxy para balancear la api de kubernetes y las aplicaciones que quieras exponer en el cluster.
+Con este playbook podrás porvisionar un cluster de microk8s ademas de un balanceo con HAProxy para balancear la api de kubernetes y las aplicaciones que quieras exponer en el cluster. 
+
+Adicionalmente se despliega ArgoCD y Tekton para poder trabajar con CI/CD.
+
+Se realizan varios test sobre el cluster:
+
+- [Sonobuoy](https://sonobuoy.io/)
+- [Kube-bench](https://aquasecurity.github.io/kube-bench/v0.6.5/)
 
 En la siguiente imagen se muestra un diagrama donde se ve la infraestructura final que se provisiona desde un bastión con ansible.
 
@@ -24,4 +31,4 @@ Cada rol de este playbook tiene su propio README que explica su funcionamiento y
 - [Tekton](https://github.com/arpovea/microk8s-ansible/blob/main/roles/tekton/README.md)
 - [HAProxy](https://github.com/arpovea/microk8s-ansible/blob/main/roles/haproxy/README.md)
 - [Test Sonoybuoy](https://github.com/arpovea/microk8s-ansible/blob/main/roles/sonobuoy/README.md)
-- [Test Kube bench](https://github.com/arpovea/microk8s-ansible/blob/main/roles/kube_bench/README.md)
+- [Test Kube-bench](https://github.com/arpovea/microk8s-ansible/blob/main/roles/kube_bench/README.md)
