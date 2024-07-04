@@ -4,3 +4,4 @@
     name: haproxy
     state: present
     update_cache: true
+  become: true
