@@ -47,3 +47,16 @@
 - name: Show Dashboard token
   ansible.builtin.debug:
     msg: "El token del ServiceAccount del Dashboard es: {{ dashboard_token_output.stdout }}"
+
+- name: Create Dashboard ingress
+  ansible.builtin.template:
+    src: dashboard-ingress.yaml.j2
+    dest: /tmp/dashboard-ingress.yaml
+    mode: '0644'
+
+- name: Apply Dashboard ingress
+  kubernetes.core.k8s:
+    state: present
+    src: "/tmp/dashboard-ingress.yaml"
+    namespace: kube-system
+  become: true
