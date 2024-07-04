@@ -6,4 +6,4 @@ Este rol se encarga del despliegue de Tekton en Microk8s.
 
 | Variable        | Descripción                                          | Valor por defecto |
 |-----------------|------------------------------------------------------|-------------------|
-| `enable_tekton` | Habilita o deshabilita el despliegue de Tekton.     | `false`           |
+| `tekton_enable` | Habilita o deshabilita el despliegue de Tekton.     | `true`           |
