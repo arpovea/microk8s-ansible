@@ -15,5 +15,3 @@ microk8s_init_addons:
   dashboard: true
   storage: false
   registry: false
-
-microk8s_init_dashboard_host: "dashboard.arpovea.com"
