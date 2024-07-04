@@ -5,6 +5,7 @@
   register: addons_rbac
   changed_when: addons_rbac.rc != 0
   when: microk8s_init_addons.rbac
+  become: true
 
 # Addon MetalLB
 - name: Enable MicroK8s MetalLB addon
@@ -14,6 +15,7 @@
   register: addons_metallb
   changed_when: addons_metallb.rc != 0
   when: microk8s_init_addons.metallb
+  become: true
 
 - name: Wait for MetalLB namespace to be created
   ansible.builtin.command: /snap/bin/microk8s kubectl get ns metallb-system
@@ -23,6 +25,7 @@
   retries: 5
   delay: 10
   when: microk8s_init_addons.metallb
+  become: true
 
 # Addon Ingress
 - name: Enable MicroK8s Ingress addon
@@ -30,6 +33,7 @@
   register: addons_ingress
   changed_when: addons_ingress.rc != 0
   when: microk8s_init_addons.ingress
+  become: true
 
 - name: Create Ingress Controller Service
   ansible.builtin.template:
@@ -37,12 +41,14 @@
     dest: /tmp/ingress-controller-service.yaml
     mode: '0644'
   when: microk8s_init_addons.ingress
+  become: true
 
 - name: Apply Ingress Controller Service
   ansible.builtin.command: /snap/bin/microk8s kubectl apply -f /tmp/ingress-controller-service.yaml
   register: addons_ingress_service
   changed_when: addons_ingress_service.rc != 0
   when: microk8s_init_addons.ingress
+  become: true
 
 # Addon Metrics Server
 - name: Enable MicroK8s Metrics Server addon
@@ -50,6 +56,7 @@
   register: addons_metrics
   changed_when: addons_metrics.rc != 0
   when: microk8s_init_addons["metrics_server"]
+  become: true
 
 # Addon Dashboard
 - name: Enable MicroK8s Dashboard addon
@@ -57,6 +64,7 @@
   register: addons_dashboard
   changed_when: addons_dashboard.rc != 0
   when: microk8s_init_addons.dashboard
+  become: true
 
 # Addon Storage
 - name: Enable MicroK8s Storage addon
@@ -64,6 +72,7 @@
   register: addons_storage
   changed_when: addons_storage.rc != 0
   when: microk8s_init_addons.storage
+  become: true
 
 # Addon Registry
 - name: Enable MicroK8s Registry addon
@@ -71,3 +80,4 @@
   register: addons_registry
   changed_when: addons_registry.rc != 0
   when: microk8s_init_addons.registry
+  become: true

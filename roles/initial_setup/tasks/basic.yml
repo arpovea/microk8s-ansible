@@ -64,6 +64,7 @@
   ansible.builtin.set_fact:
     dns_servers: "{{ initial_setup_nameservers | join(' ') }}"
     fallback_dns_servers: "{{ initial_setup_fallback_dns | join(' ') }}"
+  become: true
 
 - name: Configuring DNS servers in /etc/systemd/resolved.conf
   ansible.builtin.blockinfile:

@@ -6,6 +6,7 @@
   register: microk8s_status
   changed_when: false
   until: microk8s_status.rc == 0
+  become: true
 
 - name: Generate MicroK8s join token
   ansible.builtin.command: /snap/bin/microk8s add-node --token-ttl 3600
@@ -16,6 +17,7 @@
 - name: Extract join token
   ansible.builtin.set_fact:
     microk8s_join_token: "{{ join_token_output.stdout | regex_search('microk8s join .*') | regex_replace('.*25000/', '') | regex_replace(' --.*', '') }}"
+  become: true
 
 - name: Get list of current nodes in the cluster
   ansible.builtin.command: /snap/bin/microk8s kubectl get nodes -o name
@@ -26,3 +28,4 @@
 - name: Set fact for current nodes
   ansible.builtin.set_fact:
     existing_nodes: "{{ current_nodes.stdout_lines }}"
+  become: true

@@ -8,6 +8,7 @@
       metadata:
         name: dashboard-admin-sa
         namespace: kube-system
+  become: true
 
 - name: Crear ClusterRoleBinding para el ServiceAccount del Dashboard
   kubernetes.core.k8s:
@@ -25,6 +26,7 @@
         kind: ClusterRole
         name: cluster-admin
         apiGroup: rbac.authorization.k8s.io
+  become: true
 
 - name: Wait 10 seconds for the token and everything related to the Dashboard ServiceAccount to be configured.
   ansible.builtin.pause:
@@ -36,10 +38,12 @@
     executable: /bin/bash
   changed_when: false
   register: secret_name
+  become: true
 
 - name: Check the name of the secret obtained
   ansible.builtin.debug:
     msg: "El nombre del secreto es: {{ secret_name.stdout }}"
+  become: true
 
 - name: Obtain and decode the ServiceAccount token from Dashboard
   ansible.builtin.shell:
@@ -47,7 +51,9 @@
     executable: /bin/bash
   changed_when: false
   register: dashboard_token_output
+  become: true
 
 - name: Show Dashboard token
   ansible.builtin.debug:
     msg: "El token del ServiceAccount del Dashboard es: {{ dashboard_token_output.stdout }}"
+  become: true

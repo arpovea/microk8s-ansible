@@ -4,6 +4,7 @@
   register: microk8s_status
   failed_when: false
   changed_when: false
+  become: true
 
 - name: Create the configuration directory
   ansible.builtin.file:
@@ -51,6 +52,7 @@
   register: microk8s_ready
   changed_when: false
   until: microk8s_ready.rc == 0
+  become: true
 
 - name: Add user to microk8s group
   ansible.builtin.user:
