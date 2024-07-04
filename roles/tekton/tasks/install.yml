@@ -9,7 +9,7 @@
         name: tekton-pipelines
   ignore_errors: true
   register: ignore_errors_register
-  become: false
+  become: true
 
 - name: Download Tekton manifest
   ansible.builtin.get_url:
@@ -23,4 +23,4 @@
     state: present
     src: "/tmp/tekton-pipeline-release.yaml"
     namespace: tekton-pipelines
-  become: false
+  become: true
