@@ -19,7 +19,7 @@
 
 - name: Play Deploy Services
   hosts: control_plane_primary
-  become: true
+  become: false
   roles:
     - argocd
     - tekton

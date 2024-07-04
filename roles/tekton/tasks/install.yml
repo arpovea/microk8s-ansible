@@ -9,18 +9,18 @@
         name: tekton-pipelines
   ignore_errors: true
   register: ignore_errors_register
-  become: true
+  become: false
 
 - name: Download Tekton manifest
   ansible.builtin.get_url:
     url: "https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml"
     dest: "/tmp/tekton-pipeline-release.yaml"
     mode: '0644'
-  become: true
+  become: false
 
 - name: Apply Tekton manifest
   kubernetes.core.k8s:
     state: present
     src: "/tmp/tekton-pipeline-release.yaml"
     namespace: tekton-pipelines
-  become: true
+  become: false
