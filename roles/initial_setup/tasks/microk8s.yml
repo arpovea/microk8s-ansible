@@ -63,6 +63,7 @@
 
 - name: Reload user groups
   ansible.builtin.shell: "newgrp microk8s && sg microk8s"
+  changed_when: false
   become: true
   become_user: "{{ ansible_user }}"
 
