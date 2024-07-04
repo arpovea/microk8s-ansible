@@ -1,4 +1,12 @@
 ---
+- name: Wait for the secret of Argocd
+  ansible.builtin.command: /snap/bin/microk8s kubectl get secret argocd-initial-admin-secret -n argocd
+  register: argocd_secret_check
+  changed_when: argocd_secret_check != 0
+  until: argocd_secret_check == 0
+  retries: 5
+  delay: 10
+
 - name: Obtain and decode the secret admin password of ArgoCD
   ansible.builtin.shell:
     cmd: set -o pipefail && kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode
