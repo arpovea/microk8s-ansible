@@ -41,7 +41,7 @@
     dest: /tmp/ingress-controller-service.yaml
     mode: '0644'
   when: microk8s_init_addons.ingress
-  become: true
+  become: false
 
 - name: Apply Ingress Controller Service
   ansible.builtin.command: /snap/bin/microk8s kubectl apply -f /tmp/ingress-controller-service.yaml
