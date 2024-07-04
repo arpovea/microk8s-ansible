@@ -61,6 +61,11 @@
     append: true
   become: true
 
+- name: Reload user groups
+  ansible.builtin.shell: "newgrp microk8s && sg microk8s"
+  become: true
+  become_user: "{{ ansible_user }}"
+
 - name: Create kubectl alias
   ansible.builtin.command: "snap alias microk8s.kubectl kubectl"
   changed_when: false
