@@ -93,12 +93,26 @@
     mode: '0755'
   become: true
 
+- name: Create .kube directory if it does not exist for the user root
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.kube"
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: '0755'
+  become: true
+
 - name: Generate kubeconfig for MicroK8s for the user non-root
   ansible.builtin.shell: /snap/bin/microk8s config > /home/{{ ansible_user }}/.kube/config
   register: generate_kubeconfig
   changed_when: generate_kubeconfig.rc != 0
   become: true
   become_user: "{{ ansible_user }}"
+
+- name: Generate kubeconfig for MicroK8s for the user root
+  ansible.builtin.shell: /snap/bin/microk8s config > {{ ansible_env.HOME }}/.kube/config
+  register: generate_kubeconfig
+  changed_when: generate_kubeconfig.rc != 0
+  become: true
 
 - name: Ensure .kube directory ownership and permissions for the user non-root
   ansible.builtin.file:
@@ -109,9 +123,25 @@
     recurse: true
   become: true
 
+- name: Ensure .kube directory ownership and permissions for the user root
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.kube"
+    state: directory
+    owner: "{{ ansible_user }}"
+    recurse: true
+  become: true
+
 - name: Ensure kubeconfig file permissions for the user non-root
   ansible.builtin.file:
     path: "/home/{{ ansible_user }}/.kube/config"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'
+  become: true
+
+- name: Ensure kubeconfig file permissions for the user root
+  ansible.builtin.file:
+    path: /home/{{ ansible_user }}/.kube/config
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: '0644'
