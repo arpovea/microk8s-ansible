@@ -8,7 +8,9 @@
 
 # Addon MetalLB
 - name: Enable MicroK8s MetalLB addon
-  ansible.builtin.shell: set -o pipefail && echo {{ metallb_ip_range }} | /snap/bin/microk8s enable metallb
+  ansible.builtin.shell: 
+    cmd: set -o pipefail && echo {{ metallb_ip_range }} | /snap/bin/microk8s enable metallb
+    executable: /bin/bash
   register: addons_metallb
   changed_when: addons_metallb.rc != 0
   when: microk8s_init_addons.metallb
