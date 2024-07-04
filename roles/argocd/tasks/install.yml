@@ -16,7 +16,7 @@
     url: "https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
     dest: "/tmp/argocd-install.yaml"
     mode: '0644'
-  become: false
+  become: true
 
 - name: Apply ArgoCD manifest
   kubernetes.core.k8s:
