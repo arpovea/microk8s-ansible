@@ -32,7 +32,7 @@
 
 - name: Play Test K8s
   hosts: control_plane_primary
-  become: true
+  become: false
   roles:
     - sonobuoy
     - kube_bench
