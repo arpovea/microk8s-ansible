@@ -2,8 +2,8 @@
 - name: Wait for the secret of Argocd
   ansible.builtin.command: /snap/bin/microk8s kubectl get secret argocd-initial-admin-secret -n argocd
   register: argocd_secret_check
-  changed_when: argocd_secret_check != 0
-  until: argocd_secret_check == 0
+  changed_when: argocd_secret_check.rc != 0
+  until: argocd_secret_check.rc == 0
   retries: 5
   delay: 10
 
