@@ -28,7 +28,7 @@
 
 - name: Wait 10 seconds for the token and everything related to the Dashboard ServiceAccount to be configured.
   ansible.builtin.pause:
-    seconds: 10     
+    seconds: 10
 
 - name: Get the name of the secret ServiceAccount from the Dashboard
   ansible.builtin.shell:
