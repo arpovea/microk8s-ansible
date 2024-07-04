@@ -53,7 +53,8 @@
     version: '>=3.11'
     executable: pip3
   become: true
-
+  when: "'cluster_microk8s' in group_names"
+  
 - name: Set hostname
   ansible.builtin.hostname:
     name: "{{ inventory_hostname }}"
