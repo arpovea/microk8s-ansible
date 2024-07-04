@@ -6,6 +6,7 @@
   until: argocd_secret_check.rc == 0
   retries: 5
   delay: 10
+  become: false
 
 - name: Obtain and decode the secret admin password of ArgoCD
   ansible.builtin.shell:
@@ -13,20 +14,23 @@
     executable: /bin/bash
   register: admin_password_argocd
   changed_when: admin_password_argocd != 0
+  become: false
 
 - name: Create ArgoCD ingress
   ansible.builtin.template:
     src: argocd-ingress.yaml.j2
     dest: /tmp/argocd-ingress.yaml
     mode: '0644'
+  become: false
 
 - name: Apply ArgoCD ingress
   kubernetes.core.k8s:
     state: present
     src: "/tmp/argocd-ingress.yaml"
     namespace: argocd
-  become: true
+  become: false
 
 - name: Show ArgoCD initial admin password
   ansible.builtin.debug:
     msg: "ArgoCD initial admin password is: {{ admin_password_argocd.stdout }}"
+  become: false
