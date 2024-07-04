@@ -8,12 +8,14 @@
       metadata:
         name: tekton-pipelines
   ignore_errors: true
+  register: ignore_errors_register
   become: true
 
 - name: Download Tekton manifest
-  get_url:
+  ansible.builtin.get_url:
     url: "https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml"
     dest: "/tmp/tekton-pipeline-release.yaml"
+    mode: '0644'
   become: true
 
 - name: Apply Tekton manifest

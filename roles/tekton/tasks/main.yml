@@ -1,4 +1,4 @@
 ---
 - name: Deploy Tekton
-  include_tasks: install.yml
-  when: enable_tekton
+  ansible.builtin.include_tasks: install.yml
+  when: tekton_enable
