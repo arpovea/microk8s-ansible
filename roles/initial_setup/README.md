@@ -36,5 +36,5 @@ Este rol se encarga de realizar la instalación de la paqueteria y configuracion
 | Variable              | Descripción                                                                | Valor por defecto              |
 |-----------------------|----------------------------------------------------------------------------|--------------------------------|
 | `initial_setup_service_api_kubernetes`    | Especifica la IP del servicio de la API de Kubernetes.               | `10.96.0.1`                         |
-| `initial_setup_load_balancer_ip`    | IP del balanceador de carga para incluir en el certificado del API server. | `10.10.10.16`                |
+| `initial_setup_load_balancer_ip`    | IP del balanceador de carga para incluir en el certificado del API server. | `10.10.10.39`                |
 | `initial_setup_load_balancer_dns`   | DNS del balanceador de carga para incluir en el certificado del API server.| `api-microk8s.arpovea.com`     |

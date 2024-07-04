@@ -24,5 +24,5 @@ initial_setup_service_network_cidr: "10.96.0.0/12"
 
 # Extra IP and DNS for CERTS API
 initial_setup_service_api_kubernetes: "10.96.0.1"
-initial_setup_load_balancer_ip: "10.10.10.16"
+initial_setup_load_balancer_ip: "10.10.10.39"
 initial_setup_load_balancer_dns: "api-microk8s.arpovea.com"

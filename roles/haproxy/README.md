@@ -14,11 +14,11 @@ Este rol se encarga de la instalación y configuración de HAProxy.
 
 | Nombre           | IP             |
 |------------------|----------------|
-| `microk8s-master1` | `10.10.10.11` |
-| `microk8s-master2` | `10.10.10.12` |
-| `microk8s-master3` | `10.10.10.13` |
-| `microk8s-worker1` | `10.10.10.14` |
-| `microk8s-worker2` | `10.10.10.15` |
+| `microk8s-master1` | `10.10.10.34` |
+| `microk8s-master2` | `10.10.10.35` |
+| `microk8s-master3` | `10.10.10.36` |
+| `microk8s-worker1` | `10.10.10.37` |
+| `microk8s-worker2` | `10.10.10.38` |
 
 ***Nota:*** Estos valores son usados para rellenar el template `haproxy.cfg.j2`
 
@@ -26,8 +26,8 @@ Este rol se encarga de la instalación y configuración de HAProxy.
 
 | Nombre           | IP             |
 |------------------|----------------|
-| `microk8s-master1` | `10.10.10.11` |
-| `microk8s-master2` | `10.10.10.12` |
-| `microk8s-master3` | `10.10.10.13` |
+| `microk8s-master1` | `10.10.10.34` |
+| `microk8s-master2` | `10.10.10.35` |
+| `microk8s-master3` | `10.10.10.36` |
 
 ***Nota:*** Estos valores son usados para rellenar el template `haproxy.cfg.j2`
