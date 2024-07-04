@@ -1,6 +1,6 @@
 # Initial Setup
 
-Este rol se encarga de realizar la instalación de la paqueteria y configuraciones iniciales para microk8s.
+Este rol se encarga de realizar la instalación de la paquetería y configuraciones iniciales para microk8s.
 
 ## Documentación de variables de Initial Setup
 

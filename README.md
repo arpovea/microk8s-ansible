@@ -1,6 +1,6 @@
 # Despliegue de Microk8s con Ansible
 
-Con este playbook podrás porvisionar un cluster de microk8s ademas de un balanceo con HAProxy para balancear la api de kubernetes y las aplicaciones que quieras exponer en el cluster. 
+Con este playbook podrás provisionar un cluster de microk8s además de un balanceo con HAProxy para balancear la api de kubernetes y las aplicaciones que quieras exponer en el cluster. 
 
 Adicionalmente se despliega ArgoCD y Tekton para poder trabajar con CI/CD.
 
