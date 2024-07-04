@@ -28,7 +28,7 @@
     state: present
     src: "/tmp/argocd-ingress.yaml"
     namespace: argocd
-  become: false
+  become: true
 
 - name: Show ArgoCD initial admin password
   ansible.builtin.debug:
