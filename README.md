@@ -16,3 +16,12 @@ Se recomiendan las siguientes MV:
 > Adicionalmente se necesitará una máquina desde la que lanzar ansible.
 
 Cada rol de este playbook tiene su propio README que explica su funcionamiento y variables:
+
+- [Initial Setup](https://github.com/arpovea/microk8s-ansible/blob/main/roles/initial_setup/README.md)    
+- [Microk8s Init](https://github.com/arpovea/microk8s-ansible/blob/main/roles/microk8s_init/README.md)
+- [Microk8s Join](https://github.com/arpovea/microk8s-ansible/blob/main/roles/microk8s_join/README.md)
+- [ArgoCD](https://github.com/arpovea/microk8s-ansible/blob/main/roles/argocd/README.md)
+- [Tekton](https://github.com/arpovea/microk8s-ansible/blob/main/roles/tekton/README.md)
+- [Haproxy](https://github.com/arpovea/microk8s-ansible/blob/main/roles/haproxy/README.md)
+- [Test Sonoybuoy](https://github.com/arpovea/microk8s-ansible/blob/main/roles/sonobuoy/README.md)
+- [Test Kube bench](https://github.com/arpovea/microk8s-ansible/blob/main/roles/kube_bench/README.md)
