@@ -12,7 +12,7 @@ Se recomiendan las siguientes MV:
 - 2 Workers
 - 1 Balance con HAProxy
 
-> [!NOTE]
+> [!IMPORTANT]
 > Adicionalmente se necesitará una máquina desde la que lanzar ansible.
 
 Cada rol de este playbook tiene su propio README que explica su funcionamiento y variables:
