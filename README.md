@@ -36,5 +36,6 @@ Cada rol de este playbook tiene su propio README que explica su funcionamiento y
 > [!CAUTION]
 > Este escenario se ha testeado con:
 >
+>- Ubuntu 22.04
 >- Ansible: v2.17.1
 >- Microk8s: v1.30/stable
